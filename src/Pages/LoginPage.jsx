@@ -56,7 +56,7 @@ const LoginPage = () => {
         <div className="bg-gradient-to-r from-black/55 to-black/40 w-full h-full absolute top-0 right-0 bottom-0 left-0">
 
         </div>
-        <div className="w-full max-w-sm p-6 cmn-parent-bg rounded-lg shadow-lg relative">
+        <div className="w-full max-w-sm p-6 cmn-child-bg rounded-lg shadow-lg relative">
           {/* <!-- Heading --> */}
           <h2 className="text-2xl ubuntu-bold  font-semibold text-center text-white">
             Welcome Back{" "}
@@ -68,11 +68,11 @@ const LoginPage = () => {
             <div className="flex flex-col gap-2">
               <Label
                 htmlFor="email"
-                className="block ubuntu-medium text-sm font-medium text-[#949eb6]"
+                className="block ubuntu-medium main-text"
               >
                 Email
               </Label>
-              <Input
+              <input
                 type="email"
                 id="email"
                 name="email"
@@ -80,7 +80,7 @@ const LoginPage = () => {
                 value={user?.email}
                 onChange={(e) => setuser({ ...user, email: e.target.value })}
                 required
-               className="bg-[#1c1f26] outline-none border-none cmn-text placeholder:text-[#949eb6] "
+               className="cmn-input p-3"
               />
             </div>
 
@@ -88,14 +88,14 @@ const LoginPage = () => {
             <div className="flex flex-col gap-2">
               <Label
                 htmlFor="password"
-                className="block text-sm ubuntu-medium font-medium text-[#949eb6]"
+                className="block text-sm ubuntu-medium  main-text"
               >
                 Password
               </Label>
 
               <div className="w-full relative flex  gap-2">
 
-              <Input
+              <input
                 type={showpassword?.type}
                 id="password"
                 name="password"
@@ -104,7 +104,7 @@ const LoginPage = () => {
                 placeholder="Enter the Password"
                 onChange={(e) => setuser({ ...user, password: e.target.value })}
                 required
-                className="bg-[#1c1f26] outline-none border-none text-[#949eb6] placeholder:text-[#949eb6]"
+                className="cmn-input p-3"
                
               />
 
@@ -114,19 +114,19 @@ const LoginPage = () => {
             </div>
 
             {/* <!-- Login Button --> */}
-            <Button className="bg-blue-500 hover:bg-blue-600">
+            <Button className="cmn-btn">
               Login
             </Button>
 
             {/* <!-- Additional Links --> */}
             <div className="flex items-center justify-between mt-4 text-sm">
-              <a href="#" className="text-blue-800 ubuntu-light hover:underline">
+              <a href="#" className="cmn-text ubuntu-light hover:underline">
                 Forgot password?
               </a>
               <Link
                 to={"/signup"}
                 href="#"
-                className="ubuntu-light text-blue-800 hover:underline"
+                className="ubuntu-light cmn-text"
               >
                 Sign up
               </Link>

@@ -24,7 +24,6 @@ import Verfiyotp from "./Pages/verfiyotp";
 import { Toaster } from "react-hot-toast";
 import Auth from "./utils/Auth";
 
-
 function App() {
   return (
     <>
@@ -42,7 +41,6 @@ function App() {
           </>
         )}
 
-
         <Routes>
           {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
@@ -52,11 +50,11 @@ function App() {
           {/* Protected routes */}
           <Route path="/">
             <Route index element={<Home />} />
+            <Route path="blog" element={<Blog />} />
 
             <Route path="blog/:id" element={<Singleblog />} />
 
             <Route path="projects" element={<Projects />} />
-
             {/* Profile page routing */}
             <Route element={<Auth />}>
               <Route path="profile" element={<Profilepage />} />
@@ -71,11 +69,11 @@ function App() {
               {/* Other protected routes */}
               <Route path="updateblog/:id" element={<Addblog />} />
               <Route path="addblog" element={<Addblog />} />
-              <Route path="blog" element={<Blog />} />
+          
             </Route>
 
             <Route path="about" element={<About />} />
-            <Route path="newsletter" element={<NewsLetter />} />
+            {/* <Route path="newsletter" element={<NewsLetter />} /> */}
           </Route>
         </Routes>
 

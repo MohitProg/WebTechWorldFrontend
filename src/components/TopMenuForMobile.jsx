@@ -34,7 +34,7 @@ const TopMenuForMobile = () => {
                 className={`hover:bg-[#1c1f26] cmn-text rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer`}
                 to="/"
               >
-                Blog
+                Home
               </Link>
               </DrawerClose>
               <DrawerClose asChild>
@@ -60,9 +60,9 @@ const TopMenuForMobile = () => {
 
               <Link
                 className={`hover:bg-[#1c1f26] cmn-text rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer`}
-                to="newsletter"
+                to="blog"
               >
-                Newsletter
+                Blog
               </Link>
               </DrawerClose>
 

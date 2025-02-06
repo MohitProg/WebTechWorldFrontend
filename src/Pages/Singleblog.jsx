@@ -250,108 +250,107 @@ const Singleblog = () => {
                   </div>
                 </div>
               </div>
-            <div className=" w-full md:w-[24%] mt-4 flex flex-col gap-5 ">
-              {/* input field  */}
-              <div className="w-full flex items-center gap-2 cmn-child-bg ">
-                <input
-                  onChange={(e) =>
-                    setcomments({
-                      id: singleblogdata?._id,
-                      comment: e.target.value,
-                    })
-                  }
-                  value={comments?.comment}
-                  type="text"
-                  className="cmn-input cmn-border bg-transparent  cmn-child-bg placeholder:cmn-text main-text"
-                  placeholder="Enter Comment Here"
-                  name=""
-                  id=""
-                />
-                <button
-                  onClick={HandleComment}
-                  className=" cmn-btn main-text w-16 "
-                >
-                  <SendIcon fontSize="medium " />
-                </button>
+              <div className=" w-full md:w-[24%] mt-4 flex flex-col gap-5 ">
+                {/* input field  */}
+                <div className="w-full flex items-center gap-2 ">
+                  <input
+                    onChange={(e) =>
+                      setcomments({
+                        id: singleblogdata?._id,
+                        comment: e.target.value,
+                      })
+                    }
+                    value={comments?.comment}
+                    type="text"
+                    className="cmn-input sm:p-2 p-3 cmn-border bg-transparent  cmn-child-bg placeholder:cmn-text main-text"
+                    placeholder="Enter Comment Here"
+                    name=""
+                    id=""
+                  />
+                  <button
+                    onClick={HandleComment}
+                    className=" cmn-btn main-text w-16 "
+                  >
+                    <SendIcon fontSize="medium " />
+                  </button>
+                </div>
+
+                {/* message field */}
+
+                <div className=" flex flex-col gap-3">
+                  {/* message 1 */}
+
+                  {commentsdata && commentsdata?.length > 0 ? (
+                    <>
+                      {commentsdata?.map((value) => (
+                        <div className="    cmn-child-bg  rounded-lg p-2 sm:p-4  flex shadow-sm items-center gap-2 justify-between">
+                          <div
+                            key={value?._id}
+                            className="flex flex-col  space-y-1"
+                          >
+                            <span className="text-sm font-bold italic  cmn-text">
+                              {value?.senderId?.name}
+                            </span>
+                            <p className="text-base font-bold main-text">
+                              {value?.comment}
+                            </p>
+                          </div>
+                          <div className="main-text text-[0.7rem] sm:text-sm  h-full  flex flex-col gap-3 items-end ">
+                            {userid === value?.senderId?._id && (
+                              <div
+                                onClick={() => DeleteComment(value?._id)}
+                                className="hover:bg-[#512b30]  main-text  hover:text-red-500 rounded-full p-2 transition-colors duration-200 ease-in-out"
+                              >
+                                <CloseIcon fontSize="small" />
+                              </div>
+                            )}
+
+                            {moment(value?.createdAt).fromNow()}
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <div>
+                      <h1 className="ubuntu-regular-italic h-[30vh] main-text flex items-center justify-center">
+                        No Comment is Available
+                      </h1>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              {/* message field */}
-
-              <div className=" flex flex-col gap-3">
-                {/* message 1 */}
-
-                {commentsdata && commentsdata?.length > 0 ? (
-                  <>
-                    {commentsdata?.map((value) => (
-                      <div className="    cmn-child-bg  rounded-lg p-2 sm:p-4  flex shadow-sm items-center gap-2 justify-between">
-                        <div
-                          key={value?._id}
-                          className="flex flex-col  space-y-1"
-                        >
-                          <span className="text-sm font-bold italic  cmn-text">
-                            {value?.senderId?.name}
-                          </span>
-                          <p className="text-base font-bold main-text">
-                            {value?.comment}
-                          </p>
-                        </div>
-                        <div className="main-text text-[0.7rem] sm:text-sm  h-full  flex flex-col gap-3 items-end ">
-                          {userid === value?.senderId?._id && (
-                            <div
-                              onClick={() => DeleteComment(value?._id)}
-                              className="hover:bg-[#512b30]  main-text  hover:text-red-500 rounded-full p-2 transition-colors duration-200 ease-in-out"
-                            >
-                              <CloseIcon fontSize="small" />
-                            </div>
-                          )}
-
-                          {moment(value?.createdAt).fromNow()}
-                        </div>
-                      </div>
-                    ))}
-                  </>
-                ) : (
-                  <div>
-                    <h1 className="ubuntu-regular-italic h-[30vh] main-text flex items-center justify-center">
-                      No Comment is Available
-                    </h1>
-                  </div>
-                )}
-              </div>
-            </div>
-             
               {/* comment section */}
             </div>
 
-             {/* more blog post  */}
-             <div className="lg:mt-0">
-                <h1 className=" text-xl  main-text  ubuntu-medium sm:text-2xl font-semibold ">
-                  More Blog Posts
-                </h1>
+            {/* more blog post  */}
+            <div className="lg:mt-0">
+              <h1 className=" text-xl  main-text  ubuntu-medium sm:text-2xl font-semibold ">
+                More Blog Posts
+              </h1>
 
-                {blogcategorystatus === "pending" ? (
-                  <>
-                    <div className="text-white">
-                      <SingleLoader />
-                    </div>
-                  </>
-                ) : blogsbycategory && blogsbycategory?.length > 1 ? (
-                  <div className="py-4 mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:mt-4 ">
-                    {blogsbycategory
-                      ?.filter((value) => value?._id !== singleblogdata?._id)
-                      .map((value) => (
-                        <BlogItem key={value._id} value={value} />
-                      ))}
+              {blogcategorystatus === "pending" ? (
+                <>
+                  <div className="text-white">
+                    <SingleLoader />
                   </div>
-                ) : (
-                  <>
-                    <div className="w-full text-center main-text h-[40vh] flex items-center justify-center mt-4 ">
-                      <h1>No Blog Available</h1>
-                    </div>
-                  </>
-                )}
-              </div>
-
+                </>
+              ) : blogsbycategory && blogsbycategory?.length > 1 ? (
+                <div className="py-4 mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:mt-4 ">
+                  {blogsbycategory
+                    ?.filter((value) => value?._id !== singleblogdata?._id)
+                    .map((value) => (
+                      <BlogItem key={value._id} value={value} />
+                    ))}
+                </div>
+              ) : (
+                <>
+                  <div className="w-full text-center main-text h-[40vh] flex items-center justify-center mt-4 ">
+                    <h1>No Blog Available</h1>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
 
           {/* Uncomment if needed */}

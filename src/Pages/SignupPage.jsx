@@ -63,11 +63,11 @@ const SignupPage = () => {
           <div className="flex flex-col gap-2">
             <Label
               htmlFor="email"
-              className="block ubuntu-medium text-sm font-medium cmn-text"
+              className="block ubuntu-medium text-sm font-medium main-text"
             >
               User Name
             </Label>
-            <Input
+            <input
               type="text"
               id="name"
               placeholder="Enter the name"
@@ -75,7 +75,7 @@ const SignupPage = () => {
               value={user?.name}
               onChange={(e) => setuser({ ...user, name: e.target.value })}
               required
-            className="cmn-input"
+            className="cmn-input p-3"
             />
           </div>
 
@@ -83,11 +83,11 @@ const SignupPage = () => {
           <div className="flex flex-col gap-2">
             <Label
               htmlFor="email"
-              className="block text-sm ubuntu-medium font-medium cmn-text"
+              className="block text-sm ubuntu-medium font-medium main-text"
             >
               Email
             </Label>
-            <Input
+            <input
               type="email"
               id="email"
               name="email"
@@ -95,7 +95,7 @@ const SignupPage = () => {
               value={user?.email}
               onChange={(e) => setuser({ ...user, email: e.target.value })}
               required
-            className="cmn-input"
+            className="cmn-input p-3"
             />
           </div>
 
@@ -103,12 +103,12 @@ const SignupPage = () => {
           <div className="flex flex-col gap-2">
             <Label
               htmlFor="password"
-              className="block text-sm ubuntu-medium font-medium cmn-text"
+              className="block text-sm ubuntu-medium font-medium main-text"
             >
               Password
             </Label>
             <div className="w-full relative flex ">
-              <Input
+              <input
                 type={showpassword?.type}
                 id="password"
                 name="password"
@@ -117,7 +117,7 @@ const SignupPage = () => {
                 value={user?.password}
                 onChange={(e) => setuser({ ...user, password: e.target.value })}
                 required
-           className="cmn-input"
+           className="cmn-input p-3"
               />
 
               {showpassword?.bol ? (
@@ -144,16 +144,16 @@ const SignupPage = () => {
           </div>
 
           {/* <!-- Login Button --> */}
-         <Button className="bg-blue-500 hover:bg-blue-600">
+         <Button className="cmn-btn">
                       Signup
                     </Button>
 
           {/* <!-- Additional Links --> */}
           <div className="flex items-center justify-between mt-4 text-sm">
-            <a href="#" className="text-blue-800 hover:underline ubuntu-light">
+            <a href="#" className="cmn-text hover:underline ubuntu-light">
               Forgot password?
             </a>
-            <Link to={"/login"} className="text-blue-800 hover:underline ubuntu-light">
+            <Link to={"/login"} className="cmn-text hover:underline ubuntu-light">
               Login
             </Link>
           </div>

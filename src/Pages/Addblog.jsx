@@ -211,7 +211,7 @@ const Addblog = () => {
           {/* Title Field */}
           <div className="flex flex-col gap-2">
             <Label className="cmn-text sm:text-xl">Title</Label>
-            <Input
+            <input
               type="text"
               name="title"
               value={blogdata?.title}
@@ -219,7 +219,7 @@ const Addblog = () => {
                 setblogdata({ ...blogdata, title: e.target.value })
               }
               required
-              className="cmn-input"
+              className="cmn-input p-3"
               placeholder="Enter blog title"
             />
           </div>
@@ -227,26 +227,26 @@ const Addblog = () => {
           {/* Summary Field */}
           <div className="flex flex-col gap-2">
             <Label className="cmn-text sm:text-xl">Summary</Label>
-            <Textarea
+            <textarea
               name="summary"
               value={blogdata?.summary}
               required
-              className="cmn-input"
+              className="cmn-input p-3 rounded-sm"
               onChange={(e) =>
                 setblogdata({ ...blogdata, summary: e.target.value })
               }
               placeholder="A short summary of your blog"
               rows="3"
-            ></Textarea>
+            ></textarea>
           </div>
 
           {/* Thumbnail Image Field */}
           <div className="flex flex-col gap-2">
             <Label className="cmn-text sm:text-xl">Thumbnail Image</Label>
-            <Input
+            <input
               type="file"
               name="file"
-              className="cmn-input"
+              className="cmn-input p-3"
               required
               onChange={(e) => {
                 setblogdata({ ...blogdata, file: e.target.files[0] }),
@@ -271,13 +271,13 @@ const Addblog = () => {
             <div>
               <FormControl sx={{ m: 1, width: "100%" }} size="small">
                 <InputLabel
-                  id="demo-multiple-name-Label "
-                  className="cmn-text sm:text-xl"
+               
+                  className="main-text sm:text-xl"
                 >
                   Tags
                 </InputLabel>
                 <Select
-                  className="cmn-input cmn-text"
+                  className="cmn-input  cmn-text"
                   sx={{color:"#949eb6",outline:"none"}}
                   id="demo-multiple-name"
                   multiple
@@ -285,7 +285,7 @@ const Addblog = () => {
                   onChange={handleChange}
                   Input={
                     <OutlinedInput
-                      className=" sm:text-xl te"
+                      className=" sm:text-xl main-text"
                       
 
                     />
@@ -321,14 +321,14 @@ const Addblog = () => {
             {Btntoggle ? (
               <Button
                 onClick={HandleUpdateBlog}
-                className="bg-blue-500 hover:bg-blue-600"
+                className="cmn-btn"
               >
                 UpdateBlog
               </Button>
             ) : (
               <Button
                 onClick={HandleSubmit}
-                className="bg-blue-500 hover:bg-blue-600"
+                className="cmn-btn"
               >
                 Publish Blog
               </Button>

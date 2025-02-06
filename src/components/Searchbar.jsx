@@ -20,7 +20,7 @@ const Searchbar = ({ value }) => {
   return (
     <>
       <div className={`${darkmode ? "dark" : ""}  `}>
-        <div className="    items-center  flex  cmn-border  rounded-full    relative ">
+        <div className="    items-center  flex   cmn-input  rounded-full    relative ">
           <CiSearch size={20} className="cmn-text absolute  right-2" />
 
           <input

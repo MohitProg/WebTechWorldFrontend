@@ -18,7 +18,7 @@ const NewsLatter = () => {
             <p className='cmn-text sm:text-lg text-center ubuntu-regular'>Subscribe to learn about new features , the latest in technology solutions and updates</p>
             <div className='flex flex-col items-start w-full justify-center '>
                 <div  className='p-2 flex  flex-col justify-center sm:flex-row gap-2 items-center w-full'>
-                <input className="cmn-input  " type="text" placeholder='Enter your email' name="" id="" />
+                <input className="cmn-input  p-2" type="text" placeholder='Enter your email' name="" id="" />
                 {/* <span className='text-sm px-2 text-[#1c1e22] ubuntu-light'>We care about your data in our privacy policy</span> */}
                 <button className='  main-text cmn-btn '>Subscribe</button>
                 </div>

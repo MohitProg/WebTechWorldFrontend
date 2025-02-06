@@ -33,7 +33,11 @@ ol {
   }
 
   .cmn-child-bg {
-    @apply bg-[#292c34];
+    @apply bg-gradient-to-br from-[#292c34] via-[#2e313a] to-[#343842] 
+    shadow-md
+    transition-all duration-300 ease-in-out 
+    hover:shadow-lg 
+    hover:from-[#343842] hover:via-[#3a3e48] hover:to-[#404452];
   }
 
   .main-text {
@@ -47,17 +51,30 @@ ol {
   }
 
   .cmn-btn {
-    @apply bg-[#d78330] p-2 rounded-lg shadow-sm;
+    @apply bg-gradient-to-r from-[#d78330] to-[#e7a35f] 
+    hover:bg-gradient-to-r hover:from-[#5a3919] hover:to-[#704624] 
+    transition-all ease-in-out duration-300 
+    hover:shadow-2xl 
+    p-2 rounded-xl 
+    shadow-md;
   }
 
   .cmn-border {
     @apply border-[1px] border-[#d78330];
   }
-}
 
-@layer components {
   .cmn-input {
-    @apply bg-[#1c1f26] outline-none  border-[1px] p-2 w-full border-[#d78330] cmn-text rounded-lg;
+    @apply bg-gradient-to-r from-[#1c1f26] to-[#2a2e38] 
+    outline-none 
+    border-[1.5px] border-[#d78330] 
+    hover:border-[#e7a35f] 
+     w-full 
+    text-[#e2e8f0] 
+    rounded-full   
+    transition-all duration-300 ease-in-out 
+    hover:shadow-lg 
+    focus:shadow-md 
+    focus:ring-1 focus:ring-[#d78330];
   }
 }
 

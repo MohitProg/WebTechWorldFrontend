@@ -122,7 +122,7 @@ const Navbar = () => {
             WebTech
           </div>
           <div className="w-1/3  hidden sm:block">
-            <Searchbar value={"hidden"} />
+            {/* <Searchbar value={"hidden"} /> */}
           </div>
 
           <div className="flex gap-2   items-center">
@@ -132,7 +132,7 @@ const Navbar = () => {
                   className="hover:bg-[#1c1f26] main-text font-semibold rounded-md p-1"
                   to="/"
                 >
-                  Blog
+                  Home
                 </Link>
                 <Link
                   className="hover:bg-[#1c1f26] main-text font-semibold  rounded-md p-1"
@@ -148,9 +148,9 @@ const Navbar = () => {
                 </Link>
                 <Link
                   className="hover:bg-[#1c1f26] main-text font-semibold  rounded-md p-1"
-                  to="newsletter"
+                  to="blog"
                 >
-                  Newsletter
+                  Blogs
                 </Link>
               </ul>
               {/* <Darkmodebtn /> */}
