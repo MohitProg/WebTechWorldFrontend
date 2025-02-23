@@ -41,8 +41,7 @@ const Navbar = () => {
 
   const HandleNaviagte = () => {
     console.log("mohit sharma");
-    Navigation("/login")
-    
+    Navigation("/login");
   };
 
   // getting data of user from here
@@ -85,6 +84,9 @@ const Navbar = () => {
     token,
     pagevalue,
   ]);
+
+
+  console.log(token)
 
   // getting blog data according to pagination and blog data
   useEffect(() => {
@@ -141,23 +143,24 @@ const Navbar = () => {
                 >
                   About me
                 </Link>
-             
               </ul>
               {/* <Darkmodebtn /> */}
             </div>
 
             <div className="px-2 flex items-center justify-center">
-        
-
-              {!token && !token?.length > 0 && (
-               
+              {!token && !token?.length > 0 ? (
                 <button
-              className=" uppercase text-xs font-semibold  bg-[#000000] p-2  text-white  "
+                  className=" uppercase text-xs font-semibold  bg-[#000000] p-2  text-white  "
                   onClick={HandleNaviagte}
                   type="button"
                 >
                   Login
                 </button>
+              ) : (
+                <>
+               
+                <ProfileDropdown />
+                </>
               )}
             </div>
 

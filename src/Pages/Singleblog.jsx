@@ -228,7 +228,7 @@ const Singleblog = () => {
                         {singleblogdata?.Author?.name}
                       </h1>
                       <span className="text-[0.8rem] text-gray-500 font-semibold">
-                        {moment(singleblogdata?.createdAt).format('ll')}
+                        {moment(singleblogdata?.createdAt).format("ll")}
                       </span>
                     </div>
                   </div>
@@ -318,7 +318,7 @@ const Singleblog = () => {
                               </div>
                             )}
 
-                            {moment(value?.createdAt).fromNow()}
+                            {moment(value?.createdAt).format('ll')}
                           </div>
                         </div>
                       ))}

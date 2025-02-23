@@ -44,13 +44,13 @@ const ProfileDropdown = () => {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className=" sm:w-[12vw] mr-7 cmn-parent-bg border-none  ">
-          <DropdownMenuLabel className="text-xl text-white">
+        <DropdownMenuContent className="  mr-7  border-none  ">
+          <DropdownMenuLabel className="text-md text-black">
             My Account
           </DropdownMenuLabel>
 
           <Link to={"/profile"}>
-            <DropdownMenuItem className=" p-2 main-text hover:cmn-child-bg ">
+            <DropdownMenuItem className=" p-2  text-sm text-gray-600 ">
               Profile
             </DropdownMenuItem>
           </Link>
@@ -63,7 +63,7 @@ const ProfileDropdown = () => {
           </Link> */}
 
           <Link>
-            <DropdownMenuItem className="p-2 main-text hover:cmn-child-bg  ">
+            <DropdownMenuItem className=" p-2  text-sm text-gray-600   ">
               {" "}
               Settings
             </DropdownMenuItem>
@@ -71,7 +71,7 @@ const ProfileDropdown = () => {
 
           <DropdownMenuItem
             onClick={(e) => setopen(true)}
-            className=" p-2 main-text hover:cmn-child-bg  "
+          className=" p-2  text-sm text-gray-600  "
           >
             {" "}
             Edit Profile
@@ -79,7 +79,7 @@ const ProfileDropdown = () => {
 
           <DropdownMenuItem
             onClick={HandleLogoutuser}
-            className=" p-2 main-text hover:cmn-child-bg  "
+           className=" p-2  text-sm text-gray-600  "
           >
             {" "}
             Logout
