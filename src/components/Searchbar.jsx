@@ -19,19 +19,17 @@ const Searchbar = ({ value }) => {
 
   return (
     <>
-      <div className={`${darkmode ? "dark" : ""}  `}>
-        <div className="    items-center  flex   cmn-input  rounded-full    relative ">
-          <CiSearch size={20} className="cmn-text absolute  right-2" />
+      <div className="  w-full   items-center  flex  border-b-2  border-gray-300    relative ">
+        <CiSearch size={20} className=" absolute  right-2" />
 
-          <input
-            type="text"
-            onChange={HandleChange}
-            name=""
-            id=""
-            placeholder="Search your blog"
-            className="w-full   border-none outline-none bg-transparent p-2  rounded-full cmn-text "
-          />
-        </div>
+        <input
+          type="text"
+          onChange={HandleChange}
+          name=""
+          id=""
+          placeholder="Search your blog"
+          className="w-full  text-xs uppercase  border-none outline-none bg-transparent p-1   placeholder:text-gray-600 rounded-full  "
+        />
       </div>
     </>
   );

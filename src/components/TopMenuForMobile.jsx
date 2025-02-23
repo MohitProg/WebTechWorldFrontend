@@ -8,8 +8,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { IoMenu } from "react-icons/io5";
 
-import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -19,19 +19,20 @@ const TopMenuForMobile = () => {
     <>
       <Drawer>
         <DrawerTrigger>
-          <MenuIcon  className="cmn-text" fontSize="large" />
+        <IoMenu size={25} className="text-black" />
+
         </DrawerTrigger>
-        <DrawerContent className=" top-0  z-[999] fixed cmn-parent-bg  border-none outline-none ">
+        <DrawerContent className=" top-0  z-[999] fixed bg-[#ffffff]  border-none outline-none ">
           <DrawerHeader>
-            <DrawerTitle className="text-white">WebTechBlog</DrawerTitle>
+            <DrawerTitle className=" font-bold">WebTechBlog</DrawerTitle>
             <DrawerDescription>This action cannot be undone.</DrawerDescription>
           </DrawerHeader>
 
           <div className="  text-[#1A1A1A]  ">
-            <ul className="flex flex-col ubuntu-medium p-2 dark:text-white text-start gap-2 text-lg">
+            <ul className="flex flex-col ubuntu-medium p-2 dark:text-white text-start gap-2 text-md">
             <DrawerClose asChild>
               <Link
-                className={`hover:bg-[#1c1f26] cmn-text rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer`}
+                className={`   py-2 px-3 cursor-pointer`}
                 to="/"
               >
                 Home
@@ -39,7 +40,7 @@ const TopMenuForMobile = () => {
               </DrawerClose>
               <DrawerClose asChild>
               <Link
-                className={`hover:bg-[#1c1f26] cmn-text rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer`}
+               className={`   py-2 px-3 cursor-pointer`}
                 to={"projects"}
               >
                 Projects
@@ -48,7 +49,7 @@ const TopMenuForMobile = () => {
 
               <DrawerClose asChild>
               <Link
-                className={`hover:bg-[#1c1f26] cmn-text rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer`}
+               className={`   py-2 px-3 cursor-pointer`}
                 onClick={() => setopenmenu(false)}
                 to="about"
               >
@@ -59,7 +60,7 @@ const TopMenuForMobile = () => {
 
 
               <Link
-                className={`hover:bg-[#1c1f26] cmn-text rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer`}
+                className={`   py-2 px-3 cursor-pointer`}
                 to="blog"
               >
                 Blog
@@ -70,7 +71,7 @@ const TopMenuForMobile = () => {
 
               <Link
                 to={"/profile"}
-                className="hover:bg-[#1c1f26] cmn-text rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer"
+                className={`   py-2 px-3 cursor-pointer`}
               >
                 Profile
               </Link>
@@ -82,20 +83,12 @@ const TopMenuForMobile = () => {
                   
               <DrawerClose asChild>
 
-              <Link className="hover:bg-[#1c1f26] cmn-text rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer">
-                Settings
-              </Link>
-              </DrawerClose>
-              <DrawerClose asChild>
-
-              <Link className="hover:bg-[#1c1f26] cmn-text rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer">
-                Service
-              </Link>
+             
               </DrawerClose>
             </ul>
           </div>
           <DrawerFooter>
-            <DrawerClose className="cmn-text bg-[#1c1f26] p-2 rounded-full">
+            <DrawerClose className="text-gray-700 p-2 rounded-full">
               Cancel
             </DrawerClose>
           </DrawerFooter>

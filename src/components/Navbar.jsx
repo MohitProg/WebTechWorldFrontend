@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -23,12 +23,13 @@ import { Button } from "./ui/button";
 import TopMenuForMobile from "./TopMenuForMobile";
 import ProfileDropdown from "./ProfileDropdown";
 // import SideMenuForWeb from "./SideMenuForWeb";
+import { IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
   // dispatch
   const dispatch = useDispatch();
   // state for navigation
-  const Naviagte = useNavigate();
+  const Navigation = useNavigate();
 
   // state for side menu page
   const [opensidemenu, setsideopenmenu] = useState(false);
@@ -40,7 +41,8 @@ const Navbar = () => {
 
   const HandleNaviagte = () => {
     console.log("mohit sharma");
-    window.location.href = "/login";
+    Navigation("/login")
+    
   };
 
   // getting data of user from here
@@ -113,61 +115,44 @@ const Navbar = () => {
             : "block"
         }`}
       >
-        <nav className="p-3 cmn-child-bg  flex shadow-lg justify-between items-center  ">
-          <div className=" flex items-center  ubuntu-bold gap-2 text-2xl text-white sm:text-2xl font-bold">
-            <Avatar>
-              <AvatarImage src="https://res.cloudinary.com/dmd35imtv/image/upload/v1732089292/lmgbiytnocnfoee9613p.webp" />
-              <AvatarFallback>Logo</AvatarFallback>
-            </Avatar>
-            WebTech
-          </div>
-          <div className="w-1/3  hidden sm:block">
-            {/* <Searchbar value={"hidden"} /> */}
+        <nav className="p-4 fixed  left-0 right-0 z-50 shadow-sm bg-[#ffffff] gap-4 text-black lg:w-[60%] mx-auto  flex  justify-between items-center  ">
+          <h1 className=" flex items-center  ubuntu-bold text-xl  sm:text-2xl font-bold">
+            WebTech <span className="text-red-500">.</span>
+          </h1>
+          <div className=" hidden  md:w-full  lg:w-1/3  md:block w-full  ">
+            <Searchbar value={"hidden"} />
           </div>
 
           <div className="flex gap-2   items-center">
-            <div className="sm:flex gap-5 items-center cmn-text hidden ">
-              <ul className="flex gap-8 text-lg ubuntu-normal ">
-                <Link
-                  className="hover:bg-[#1c1f26] main-text font-semibold rounded-md p-1"
-                  to="/"
-                >
+            <div className="sm:flex gap-5 items-center hidden  ">
+              <ul className="lg:flex gap-8 hidden text-gray-600  items-center  text-lg ubuntu-normal ">
+                <Link className=" uppercase text-xs font-semibold   " to="/">
                   Home
                 </Link>
-                <Link
-                  className="hover:bg-[#1c1f26] main-text font-semibold  rounded-md p-1"
+                {/* <Link
+                  className=" uppercase text-xs font-semibold   "
                   to={"projects"}
                 >
                   Projects
-                </Link>
+                </Link> */}
                 <Link
-                  className="hover:bg-[#1c1f26] main-text font-semibold  rounded-md p-1"
+                  className=" uppercase text-xs font-semibold   "
                   to="about"
                 >
                   About me
                 </Link>
-                <Link
-                  className="hover:bg-[#1c1f26] main-text font-semibold  rounded-md p-1"
-                  to="blog"
-                >
-                  Blogs
-                </Link>
+             
               </ul>
               {/* <Darkmodebtn /> */}
             </div>
 
-            <div className="px-2">
-              {/* toogle for login and profile button  */}
+            <div className="px-2 flex items-center justify-center">
+        
 
-              {token && token?.length > 0 ? (
-                <div className=" flex  gap-2 ">
-                  {/* <Darkmodebtn/> */}
-
-                  <ProfileDropdown />
-                </div>
-              ) : (
+              {!token && !token?.length > 0 && (
+               
                 <button
-                  className="cmn-btn main-text font-bold"
+              className=" uppercase text-xs font-semibold  bg-[#000000] p-2  text-white  "
                   onClick={HandleNaviagte}
                   type="button"
                 >
@@ -176,7 +161,7 @@ const Navbar = () => {
               )}
             </div>
 
-            <div className="sm:hidden">
+            <div className=" lg:hidden flex  gap-2 ">
               <TopMenuForMobile />
             </div>
           </div>

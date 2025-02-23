@@ -4,22 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { Postuserdata } from "../Redux/Slice/userSlice";
 import { Signupuser } from "../Redux/Api/userApi";
 import toast from "react-hot-toast";
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { CircularProgress } from "@mui/material";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import bgsign from "../components/Images/bglg.jpeg"
+import bgsign from "../components/Images/bglg.jpeg";
 const SignupPage = () => {
-  const {signupstatus}=useSelector((state)=>state.user)
+  const { signupstatus } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 
-  const [showpassword,setshowpassword]=useState({
-    bol:false,
-    type:''
-  })
+  const [showpassword, setshowpassword] = useState({
+    bol: false,
+    type: "",
+  });
 
   const [user, setuser] = useState({
     name: "",
@@ -48,11 +48,10 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="w-full h-screen relative  bg-cover bg-center flex items-center justify-center p-5" style={{backgroundImage:`url("${bgsign}")`}}>
-      <div className="bg-gradient-to-r from-black/55 to-black/40 w-full h-full absolute top-0 right-0 bottom-0 left-0"></div>
-      <div className="w-full max-w-sm p-6 cmn-parent-bg rounded-lg shadow-lg relative">
+    <div className="w-full h-screen relative  bg-cover bg-black bg-center flex items-center justify-center p-5">
+      <div className="w-full max-w-sm p-6 bg-white   shadow-lg relative">
         {/* <!-- Heading --> */}
-        <h2 className="text-2xl ubuntu-light-bold  text-white font-semibold text-center">
+        <h2 className="text-2xl   font-semibold text-center ">
           Create New Account{" "}
         </h2>
 
@@ -60,10 +59,10 @@ const SignupPage = () => {
         <form onSubmit={HandleSubmit} className="mt-6 space-y-4">
           {/* name input  */}
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <Label
               htmlFor="email"
-              className="block ubuntu-medium text-sm font-medium main-text"
+              className="block text-gray-600 text-sm  "
             >
               User Name
             </Label>
@@ -75,7 +74,7 @@ const SignupPage = () => {
               value={user?.name}
               onChange={(e) => setuser({ ...user, name: e.target.value })}
               required
-            className="cmn-input p-3"
+             className=" p-2 outline-none  w-full border-gray-600  border-[1px] text-black"
             />
           </div>
 
@@ -83,7 +82,7 @@ const SignupPage = () => {
           <div className="flex flex-col gap-2">
             <Label
               htmlFor="email"
-              className="block text-sm ubuntu-medium font-medium main-text"
+        className="block text-gray-600 text-sm  "
             >
               Email
             </Label>
@@ -95,7 +94,7 @@ const SignupPage = () => {
               value={user?.email}
               onChange={(e) => setuser({ ...user, email: e.target.value })}
               required
-            className="cmn-input p-3"
+               className=" p-2 outline-none  w-full border-gray-600  border-[1px] text-black"
             />
           </div>
 
@@ -103,7 +102,7 @@ const SignupPage = () => {
           <div className="flex flex-col gap-2">
             <Label
               htmlFor="password"
-              className="block text-sm ubuntu-medium font-medium main-text"
+              className="block text-gray-600 text-sm  "
             >
               Password
             </Label>
@@ -117,7 +116,7 @@ const SignupPage = () => {
                 value={user?.password}
                 onChange={(e) => setuser({ ...user, password: e.target.value })}
                 required
-           className="cmn-input p-3"
+             className=" p-2 outline-none  w-full border-gray-600  border-[1px] text-black"
               />
 
               {showpassword?.bol ? (
@@ -144,16 +143,17 @@ const SignupPage = () => {
           </div>
 
           {/* <!-- Login Button --> */}
-         <Button className="cmn-btn">
-                      Signup
-                    </Button>
+          <button className="text-white hover:bg-white  hover:text-black hover:border-[1px] hover:border-black   bg-[#000000]  p-2  flex items-center justify-center  w-full">Signup</button>
 
           {/* <!-- Additional Links --> */}
           <div className="flex items-center justify-between mt-4 text-sm">
             <a href="#" className="cmn-text hover:underline ubuntu-light">
               Forgot password?
             </a>
-            <Link to={"/login"} className="cmn-text hover:underline ubuntu-light">
+            <Link
+              to={"/login"}
+              className="cmn-text hover:underline ubuntu-light"
+            >
               Login
             </Link>
           </div>

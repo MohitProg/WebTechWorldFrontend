@@ -9,9 +9,9 @@ import { SiPostman } from "react-icons/si";
 import { FaGithub } from "react-icons/fa";
 import { FaRegSmileWink } from "react-icons/fa";
 
-let url="https://personalwebbackend-4cb2.onrender.com"
+let url="https://webtech-world-backend.vercel.app/"
 const ApiClient=axios.create({
-    baseURL:`https://personalwebbackend-4cb2.onrender.com/api/v1`,
+    baseURL:`https://webtech-world-backend.vercel.app/api/v1`,
     headers:{
         "Content-Type":"application/json"
     }

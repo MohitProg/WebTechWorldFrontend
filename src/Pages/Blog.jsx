@@ -17,7 +17,7 @@ const Blog = () => {
 
   return (
     <>
-      <div className="cmn-parent-bg py-3">
+      <div className=" py-3">
         <h1 className=" text-center  main-text text-4xl lg:text-6xl  font-bold ">
           Explore Blogs
         </h1>

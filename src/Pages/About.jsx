@@ -5,10 +5,10 @@ const About = () => {
   const {darkmode}=useThemeContext();
   return (
     
-    <div className="cmn-parent-bg">
-      <section className="w-full p-2 sm:p-6 lg:w-3/4 mx-auto">
+    <div className="py-[10vh]">
+      <section className=" w-full md:w-[80%] lg:w-[60%]  p-2 sm:p-6  mx-auto">
         <div className="border-b-2 border-t-2 border-gray-400 mb-6">
-          <h1 className="text-center ubuntu-bold text-4xl sm:text-6xl lg:text-[8rem] font-bold text-white transition-all duration-300 ease-in-out">
+          <h1 className="text-center ubuntu-bold text-4xl sm:text-6xl  font-bold  transition-all duration-300 ease-in-out">
             MOHIT SHARMA
           </h1>
         </div>
@@ -25,10 +25,10 @@ const About = () => {
         <div className="p-4 flex flex-col gap-6">
           {/* About Me */}
           <div className="flex flex-col gap-4">
-            <span className="text-2xl ubuntu-medium font-semibold text-white dark:text-white">
+            <span className="text-xl  font-semibold ">
               About Me
             </span>
-            <p className="text-lg ubuntu-regular  cmn-text leading-relaxed">
+            <p className="text-md text-gray-600 leading-relaxed">
               I’m an enthusiastic web developer with a strong foundation in React
               Js, Node Js, Mongodb, Tailwind CSS, and JavaScript, honed through
               personal projects and self-learning on YouTube. I’m eager to
@@ -40,10 +40,10 @@ const About = () => {
   
           {/* Skills */}
           <div className="flex flex-col gap-4">
-            <span className="text-2xl font-semibold ubuntu-medium text-white ">
+            <span className="text-xl  font-semibold ">
               Skills
             </span>
-            <ul className="flex ubuntu-regular flex-col text-lg list-disc pl-6 cmn-text">
+            <ul className="flex  flex-col text-md text-gray-600 list-disc pl-6 ">
               <li>HTML</li>
               <li>CSS</li>
               <li>JavaScript</li>
@@ -65,10 +65,10 @@ const About = () => {
   
           {/* Experience */}
           <div className="flex flex-col gap-4">
-            <span className="text-2xl font-semibold ubuntu-medium text-white">
+            <span className="text-xl  font-semibold">
               Experience
             </span>
-            <ul className="flex ubuntu-regular flex-col text-lg list-disc pl-6 cmn-text">
+            <ul className="flex  flex-col text-md list-disc pl-6 text-gray-600">
               <li>Worked as a Frontend Developer at IDesign.Market</li>
               <li>Built new feature functionalities for the company</li>
               <li>Fixed client-side bugs and issues in the company</li>

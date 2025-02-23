@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Getblogbycategory, GetblogbyId } from "../Redux/Api/blogApi";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
+import { IoSend } from "react-icons/io5";
+
 import {
   DeleteCommentfromblog,
   GetCommentofblog,
@@ -150,15 +152,15 @@ const Singleblog = () => {
               >
                 Copy
               </button>
-              <div className="p-4 rounded-lg overflow-auto">
+              <div className="p-4 mt-7 rounded-lg overflow-auto">
                 <SyntaxHighlighter
                   language={language}
-                  style={monokai}
+                  style={vs2015}
                   showLineNumbers
                   customStyle={{
                     background: "transparent",
                     fontSize: "14px",
-                    color: "#d78330", // Set code text color (gold/yellow for contrast)
+                    color: "#e1d8cf", // Set code text color (gold/yellow for contrast)
                   }}
                 >
                   {code}
@@ -171,17 +173,17 @@ const Singleblog = () => {
         // Render other content with `dangerouslySetInnerHTML`
         return (
           <div
-            className="max-w-none main-text text-lg sm:text-xl  main-text "
+            className="max-w-none  text-[1rem]  leading-relaxed     "
             key={index}
             dangerouslySetInnerHTML={{
               __html: node.innerHTML
                 .replace(
                   /<strong>(.*?)<\/strong>/g,
-                  `<strong className="main-text" style="color:white;">$1</strong>`
+                  `<strong className="text-black" style="color:black;">$1</strong>`
                 )
                 .replace(
                   /<code>(.*?)<\/code>/g,
-                  `<code style="color: #d78330; font-family: monospace;">$1</code>`
+                  `<code style="color: #393736; font-family: monospace;">$1</code>`
                 ),
             }}
           />
@@ -199,23 +201,39 @@ const Singleblog = () => {
     <>
       {singleblogtstatus !== "fullfilled" ? (
         <>
-          <div className="cmn-parent-bg">
+          <div className="">
             <SingleLoader />
           </div>
         </>
       ) : (
-        <section className="cmn-parent-bg">
-          <div className=" p-2 sm:p-6 w-full flex flex-col   gap-4">
-            <div className="w-full flex  flex-col   md:flex-row gap-3">
+        <section className="">
+          <div className="  py-[8vh]  md:w-[80%] lg:w-[60%] mx-auto flex flex-col   gap-4">
+            <div className="w-full flex   flex-col   gap-3">
               {/* blog content  */}
-              <div className="flex-1 flex flex-col gap-6">
-                <span className="font-semibold ubuntu-light-italic sm:text-xl cmn-text">
-                  {moment(singleblogdata?.createdAt).fromNow()}
-                </span>
-                <div className="mt-4 flex gap-10 flex-col">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold main-text ubuntu-medium ">
+              <div className="flex-1 flex flex-col  gap-6 p-3">
+                <div className="w-[90%] mx-auto flex flex-col gap-5">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold  ">
                     {singleblogdata?.title}
                   </h1>
+
+                  <div className="flex items-center gap-2  ">
+                    <img
+                      src={singleblogdata?.Author?.avatar}
+                      className="h-10 w-10 rounded-full  object-cover"
+                      alt=""
+                    />
+
+                    <div className="flex flex-col ">
+                      <h1 className="text-sm font-semibold uppercase">
+                        {singleblogdata?.Author?.name}
+                      </h1>
+                      <span className="text-[0.8rem] text-gray-500 font-semibold">
+                        {moment(singleblogdata?.createdAt).format('ll')}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 flex gap-10 flex-col">
                   <div className="w-full sm:h-[70vh]  p-2  rounded-lg ">
                     <img
                       src={singleblogdata?.file}
@@ -223,13 +241,8 @@ const Singleblog = () => {
                       className="rounded-xl h-full w-full object-cover shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out"
                     />
                   </div>
-                  <div className="flex flex-col gap-3">
-                    <p className="font-normal text-base ubuntu-regular cmn-text">
-                      Created By :{" "}
-                      <span className="font-bold main-text ">
-                        {singleblogdata?.Author?.name}
-                      </span>
-                    </p>
+                  {/* <div className="flex flex-col gap-3">
+                   
 
                     <div className="flex w-full gap-4 flex-wrap text-sm">
                       {singleblogdata?.category?.map((tag, index) => (
@@ -241,18 +254,18 @@ const Singleblog = () => {
                         </span>
                       ))}
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="   sm:rounded-lg ubuntu-regular p-2   cmn-child-bg   leading-relaxed sm:text-lg sm:px-5 ">
+                  <div className="   sm:rounded-lg  p-2     leading-relaxed  sm:px-5 ">
                     <RenderQuillContent content={singleblogdata?.content} />
-
-                    {/* <div  className="text-white" dangerouslySetInnerHTML={{__html:singleblogdata?.content}}></div> */}
                   </div>
                 </div>
               </div>
-              <div className=" w-full md:w-[24%] mt-4 flex flex-col gap-5 ">
+              <div className=" w-full    mx-auto p-3 flex flex-col gap-5 ">
                 {/* input field  */}
-                <div className="w-full flex items-center gap-2 ">
+
+                <h1 className="px-1 text-black font-bold">Leave a Reply</h1>
+                <div className="w-full flex items-center justify-center gap-2 ">
                   <input
                     onChange={(e) =>
                       setcomments({
@@ -262,16 +275,16 @@ const Singleblog = () => {
                     }
                     value={comments?.comment}
                     type="text"
-                    className="cmn-input sm:p-2 p-3 cmn-border bg-transparent  cmn-child-bg placeholder:cmn-text main-text"
-                    placeholder="Enter Comment Here"
+                    className=" p-2 outline-none  w-full border-gray-600  border-[1px] text-black"
+                    placeholder="Enter Comment Here*"
                     name=""
                     id=""
                   />
                   <button
                     onClick={HandleComment}
-                    className=" cmn-btn main-text w-16 "
+                    className="  text-white   bg-[#000000] p-2  flex items-center justify-center w-16 "
                   >
-                    <SendIcon fontSize="medium " />
+                    <IoSend size={25} />
                   </button>
                 </div>
 
@@ -283,23 +296,23 @@ const Singleblog = () => {
                   {commentsdata && commentsdata?.length > 0 ? (
                     <>
                       {commentsdata?.map((value) => (
-                        <div className="    cmn-child-bg  rounded-lg p-2 sm:p-4  flex shadow-sm items-center gap-2 justify-between">
+                        <div className="   border-gray-600  border-[1px]   rounded-lg p-2 sm:p-4  flex shadow-sm items-center gap-2 justify-between">
                           <div
                             key={value?._id}
                             className="flex flex-col  space-y-1"
                           >
-                            <span className="text-sm font-bold italic  cmn-text">
+                            <span className="text-xs font-semibold uppercase   ">
                               {value?.senderId?.name}
                             </span>
-                            <p className="text-base font-bold main-text">
+                            <p className="text-sm font-semibold  text-gray-600">
                               {value?.comment}
                             </p>
                           </div>
-                          <div className="main-text text-[0.7rem] sm:text-sm  h-full  flex flex-col gap-3 items-end ">
+                          <div className="text-black text-[0.7rem] sm:text-sm  h-full  flex flex-col gap-3 items-end ">
                             {userid === value?.senderId?._id && (
                               <div
                                 onClick={() => DeleteComment(value?._id)}
-                                className="hover:bg-[#512b30]  main-text  hover:text-red-500 rounded-full p-2 transition-colors duration-200 ease-in-out"
+                                className="hover:bg-[#512b30]  text-black  hover:text-red-500 rounded-full p-2 transition-colors duration-200 ease-in-out"
                               >
                                 <CloseIcon fontSize="small" />
                               </div>
@@ -312,7 +325,7 @@ const Singleblog = () => {
                     </>
                   ) : (
                     <div>
-                      <h1 className="ubuntu-regular-italic h-[30vh] main-text flex items-center justify-center">
+                      <h1 className="ubuntu-regular text-sm h-[30vh] text-gray-600 flex items-center justify-center">
                         No Comment is Available
                       </h1>
                     </div>
@@ -324,10 +337,8 @@ const Singleblog = () => {
             </div>
 
             {/* more blog post  */}
-            <div className="lg:mt-0">
-              <h1 className=" text-xl  main-text  ubuntu-medium sm:text-2xl font-semibold ">
-                More Blog Posts
-              </h1>
+            <div className="lg:mt-0 p-3">
+              <h1 className=" px-1 text-black font-bold ">More Blog Posts</h1>
 
               {blogcategorystatus === "pending" ? (
                 <>
@@ -336,7 +347,7 @@ const Singleblog = () => {
                   </div>
                 </>
               ) : blogsbycategory && blogsbycategory?.length > 1 ? (
-                <div className="py-4 mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:mt-4 ">
+                <div className="py-4 mt-4 grid grid-cols-1 gap-6  lg:mt-4 ">
                   {blogsbycategory
                     ?.filter((value) => value?._id !== singleblogdata?._id)
                     .map((value) => (
@@ -345,7 +356,7 @@ const Singleblog = () => {
                 </div>
               ) : (
                 <>
-                  <div className="w-full text-center main-text h-[40vh] flex items-center justify-center mt-4 ">
+                  <div className="w-full text-center text-black h-[40vh] flex items-center justify-center mt-4 ">
                     <h1>No Blog Available</h1>
                   </div>
                 </>

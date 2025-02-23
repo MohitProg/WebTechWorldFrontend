@@ -50,11 +50,11 @@ function App() {
           {/* Protected routes */}
           <Route path="/">
             <Route index element={<Home />} />
-            <Route path="blog" element={<Blog />} />
+            {/* <Route path="blog" element={<Blog />} /> */}
 
             <Route path="blog/:id" element={<Singleblog />} />
 
-            <Route path="projects" element={<Projects />} />
+            {/* <Route path="projects" element={<Projects />} /> */}
             {/* Profile page routing */}
             <Route element={<Auth />}>
               <Route path="profile" element={<Profilepage />} />
@@ -69,7 +69,6 @@ function App() {
               {/* Other protected routes */}
               <Route path="updateblog/:id" element={<Addblog />} />
               <Route path="addblog" element={<Addblog />} />
-          
             </Route>
 
             <Route path="about" element={<About />} />
@@ -83,7 +82,7 @@ function App() {
           ""
         ) : (
           <>
-            <NewsLatter />
+            {/* <NewsLatter /> */}
             <Fotter />
           </>
         )}
