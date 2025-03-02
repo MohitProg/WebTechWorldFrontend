@@ -1,66 +1,18 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import TextEdito from "../components/TextEdito";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-} from "@mui/material";
-import { useThemeContext } from "../context/ThemeContext";
+import { IoIosClose } from "react-icons/io";
+
 import { useDispatch, useSelector } from "react-redux";
 import { AddBlog, GetblogbyId, UpdateUserBlog } from "../Redux/Api/blogApi";
 import toast from "react-hot-toast";
 import { AddBlogstoState } from "../Redux/Slice/blogslice";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { BsUpload } from "react-icons/bs";
 
 const Addblog = () => {
+  const imageRef = useRef();
   const Navigate = useNavigate();
-  // functionality for select option  of material ui
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-
-  const names = [
-    "Personal Project",
-    "Programming Tutorials",
-    "Web Development",
-    "Mobile App Development",
-    "Data Science & AI",
-    "Cybersecurity",
-    "Cloud Computing",
-    "Tech News & Trends",
-    "Educational Tools & Apps",
-    "Study Tips & Strategies",
-    "Online Learning Platforms",
-    "Software Development",
-    "Coding Challenges",
-    "Tech Careers & Job Advice",
-    "Programming Languages",
-    "Open Source Projects",
-    "Tech Gadgets & Reviews",
-    "Startups & Entrepreneurship",
-    "Machine Learning & AI",
-    "Blockchain & Cryptocurrency",
-    "UI/UX Design",
-    "DevOps & Automation",
-    "Networking & Server Management",
-    "Tech Conferences & Events",
-    "Digital Marketing",
-    "EdTech Innovations",
-    "E-Learning Development",
-  ];
 
   const handleChange = (event) => {
     const {
@@ -82,7 +34,7 @@ const Addblog = () => {
 
   // state for hanlde blog data
   const [blogdata, setblogdata] = useState({
-    category: "",
+    category: [],
     title: "",
     summary: "",
     content: "",
@@ -172,7 +124,9 @@ const Addblog = () => {
     }
   }, [isFirstEffectComplete, Btntoggle, singleblogdata]);
 
-  console.log(blogdata);
+  console.log(blogdata.content);
+
+  // handle to update blog
 
   const HandleUpdateBlog = (e) => {
     e.preventDefault();
@@ -183,156 +137,170 @@ const Addblog = () => {
     formdata.append("summary", blogdata?.summary);
     formdata.append("content", blogdata?.content);
     formdata.append("file", blogdata?.file);
-    console.log(updateblogid,formdata)
+    console.log(updateblogid, formdata);
 
-   if(updateblogid?.length>0 && updateblogid!==null){
-    dispatch(UpdateUserBlog({formdata,updateblogid})).unwrap().then((res)=>{
+    if (updateblogid?.length > 0 && updateblogid !== null) {
+      dispatch(UpdateUserBlog({ formdata, updateblogid }))
+        .unwrap()
+        .then((res) => {
+          console.log(res);
+          if (res.success) {
+            Navigate("/profile");
+            toast.success(res.message);
+          } else {
+            toast.error(res.message);
+          }
+        });
+    }
+  };
 
-      console.log(res);
-      if(res.success){
-        Navigate("/profile")
-        toast.success(res.message)
-      }else{
-        toast.error(res.message)
-      }
-    })
-   }
+  // state for tag management
 
+  const [inputtagvalue, setInputtagvalue] = useState("");
+
+  const handlekeydown = (e) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+
+      let tagvalue = e.target.value?.trim();
+
+      setblogdata({ ...blogdata, category: [...blogdata.category, tagvalue] });
+      setInputtagvalue("");
+    }
+  };
+
+  const HandleDelete = (indx) => {
+    let finalTag = blogdata?.category.filter((val, index) => index !== indx);
+    setblogdata({ ...blogdata, category: finalTag });
   };
 
   return (
     <>
-      <div className="w-full  min-h-screen mx-auto p-6 cmn-parent-bg ">
-        <h2 className="text-2xl ubuntu-medium text-white font-semibold  mb-6">
+      <div className="  min-h-screen m p-6   mx-auto ">
+        <h2 className="text-xl text-center   text-black font-semibold  mb-6">
           Add New Blog
         </h2>
 
-        <form className="space-y-5 flex flex-col gap-3">
-          {/* Title Field */}
-          <div className="flex flex-col gap-2">
-            <Label className="cmn-text sm:text-xl">Title</Label>
-            <input
-              type="text"
-              name="title"
-              value={blogdata?.title}
-              onChange={(e) =>
-                setblogdata({ ...blogdata, title: e.target.value })
-              }
-              required
-              className="cmn-input p-3"
-              placeholder="Enter blog title"
-            />
-          </div>
+        <form className="space-y-5 min-h-screen  shadow-lg border-[2px] border-black p-2 rounded-lg grid grid-cols-4 gap-3">
+          <div className="col-span-1 space-y-3 py-2">
+            <div className="flex flex-col gap-1 ">
+              <label className="  text-sm text-gray-600">Title</label>
+              <input
+                type="text"
+                name="title"
+                value={blogdata?.title}
+                onChange={(e) =>
+                  setblogdata({ ...blogdata, title: e.target.value })
+                }
+                required
+                className=" border-[2px]  focus:outline-none p-2 rounded-sm border-gray-300  focus:border-[#006ce7]"
+                placeholder="title"
+              />
+            </div>
 
-          {/* Summary Field */}
-          <div className="flex flex-col gap-2">
-            <Label className="cmn-text sm:text-xl">Summary</Label>
-            <textarea
-              name="summary"
-              value={blogdata?.summary}
-              required
-              className="cmn-input p-3 rounded-sm"
-              onChange={(e) =>
-                setblogdata({ ...blogdata, summary: e.target.value })
-              }
-              placeholder="A short summary of your blog"
-              rows="3"
-            ></textarea>
-          </div>
+            {/* Summary Field */}
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-gray-600">Summary</label>
+              <textarea
+                name="summary"
+                value={blogdata?.summary}
+                required
+                className=" border-[2px]  focus:outline-none p-2 rounded-sm border-gray-300  focus:border-[#006ce7]"
+                onChange={(e) =>
+                  setblogdata({ ...blogdata, summary: e.target.value })
+                }
+                placeholder="A short summary of your blog"
+                rows="3"
+              ></textarea>
+            </div>
 
-          {/* Thumbnail Image Field */}
-          <div className="flex flex-col gap-2">
-            <Label className="cmn-text sm:text-xl">Thumbnail Image</Label>
-            <input
-              type="file"
-              name="file"
-              className="cmn-input p-3"
-              required
-              onChange={(e) => {
-                setblogdata({ ...blogdata, file: e.target.files[0] }),
-                  setfile(e.target.files[0]);
-              }}
-              accept="image/*"
-            />
+            {/* Thumbnail Image Field */}
+            <div className="flex flex-col gap-2">
+              <label className="  text-sm text-gray-600">Thumbnail Image</label>
 
-            {file !== null && (
-              <div className="flex items-center  justify-start w-full p-3">
-                <img
-                  src={file && URL.createObjectURL(file)}
-                  className=" h-60  object-contain"
-                  alt="thumbnail image "
-                />
-              </div>
-            )}
-          </div>
+              <button
+                onClick={() => imageRef.current.click()}
+                className=" border-[2px] border-gray-300 flex items-center gap-2 cursor-pointer justify-center  focus:outline-none p-2 rounded-sm hover:border-[#006ce7]"
+              >
+                <BsUpload size={15} /> upload Image
+              </button>
 
-          <div className="flex flex-col gap-2">
-            <Label className="cmn-text sm:text-xl">Category</Label>
-            <div>
-              <FormControl sx={{ m: 1, width: "100%" }} size="small">
-                <InputLabel
-               
-                  className="main-text sm:text-xl"
-                >
-                  Tags
-                </InputLabel>
-                <Select
-                  className="cmn-input  cmn-text"
-                  sx={{color:"#949eb6",outline:"none"}}
-                  id="demo-multiple-name"
-                  multiple
-                  value={blogdata?.category || []}
-                  onChange={handleChange}
-                  Input={
-                    <OutlinedInput
-                      className=" sm:text-xl main-text"
-                      
+              <input
+                type="file"
+                name="file"
+                ref={imageRef}
+                className=" border-[2px] hidden  p-2   rounded-lg border-gray-600"
+                required
+                onChange={(e) => {
+                  setblogdata({ ...blogdata, file: e.target.files[0] }),
+                    setfile(e.target.files[0]);
+                }}
+                accept="image/*"
+              />
 
-                    />
-                  }
-                  MenuProps={MenuProps}
-                >
-                  {names.map((name) => (
-                    <MenuItem
-                      key={name}
-                      value={name}
-                      //   style={getStyles(name, personName, theme)}
-                    >
-                      {name}
-                    </MenuItem>
+              {file !== null && (
+                <div className="flex items-center  justify-start w-full p-3">
+                  <img
+                    src={file && URL.createObjectURL(file)}
+                    className=" h-60  object-contain"
+                    alt="thumbnail image "
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="  text-sm text-gray-600">Tags</label>
+
+              <input
+                type="text"
+                onKeyDown={(e) => handlekeydown(e)}
+                placeholder="Enter the tags"
+                maxLength={20}
+                onChange={(e) => setInputtagvalue(e.target.value)}
+                value={inputtagvalue}
+                className=" border-[2px]  focus:outline-none p-2 rounded-sm border-gray-300  focus:border-[#006ce7]"
+              />
+
+              <div className="flex gap-2 flex-wrap">
+                {blogdata?.category &&
+                  blogdata?.category?.map((value, ind) => (
+                    <span className="flex text-sm  bg-[#7ba8dc3f] p-1 px-2  text-blue-700 rounded-full justify-center items-center">
+                      {value}{" "}
+                      <IoIosClose
+                        onClick={() => HandleDelete(ind)}
+                        size={24}
+                        className="cursor-pointer "
+                      />{" "}
+                    </span>
                   ))}
-                </Select>
-              </FormControl>
+              </div>
             </div>
           </div>
-
-          {/* Blog Editor Field */}
-          <div className="flex flex-col gap-2">
-            <Label className="cmn-text sm:text-xl">Blog Content</Label>
-            <TextEdito
-              className="ring-1 ring-black"
-              setblogdata={setblogdata}
-              blogdata={blogdata}
-            />
-          </div>
+          {/* Title Field */}
 
           {/* Submit Button */}
-          <div className="flex justify-end">
-            {Btntoggle ? (
-              <Button
-                onClick={HandleUpdateBlog}
-                className="cmn-btn"
-              >
-                UpdateBlog
-              </Button>
-            ) : (
-              <Button
-                onClick={HandleSubmit}
-                className="cmn-btn"
-              >
-                Publish Blog
-              </Button>
-            )}
+
+          <div className="col-span-3 space-y-3 ">
+            {/* Blog Editor Field */}
+            <div className="">
+              <TextEdito
+                className="ring-1 ring-black"
+                setblogdata={setblogdata}
+                blogdata={blogdata}
+              />
+            </div>
+            <div className="flex justify-end ">
+              {Btntoggle ? (
+                <Button onClick={HandleUpdateBlog} className="cmn-btn">
+                  UpdateBlog
+                </Button>
+              ) : (
+                <Button onClick={HandleSubmit} className="cmn-btn">
+                  Publish Blog
+                </Button>
+              )}
+            </div>
           </div>
         </form>
       </div>

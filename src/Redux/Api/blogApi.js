@@ -58,9 +58,10 @@ export const UpdateUserBlog = createAsyncThunk(
 export const GetAllblogs = createAsyncThunk(
   "/getallblogs",
   async ({ pagevalue, searchvalue, category }) => {
+    console.log(category,"api")
     try {
       const res = await ApiClient.get(
-        `/blog/getblogs?page=${pagevalue || 1}&limit=${8}&search=${
+        `/blog/getblogs?page=${pagevalue || 1}&limit=${6}&search=${
           searchvalue || ""
         }&category=${category || ""}`
       );

@@ -1,12 +1,13 @@
 import React, { memo, useEffect, useState } from "react";
 import BlogItem from "../components/BlogItem";
 import { useThemeContext } from "../context/ThemeContext";
-import SendIcon from "@mui/icons-material/Send";
 import { useDispatch, useSelector } from "react-redux";
 import { Getblogbycategory, GetblogbyId } from "../Redux/Api/blogApi";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
 import { IoSend } from "react-icons/io5";
+import DOMPurify from "dompurify";
+import { marked } from "marked";
 
 import {
   DeleteCommentfromblog,
@@ -16,18 +17,6 @@ import {
 import toast from "react-hot-toast";
 import CloseIcon from "@mui/icons-material/Close";
 import { DeleteCommentfromState } from "../Redux/Slice/commentSlice";
-import Loader from "../components/Loader";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { createElement } from "react";
-
-import {
-  dracula,
-  atomOneDark,
-  vs2015,
-  monokai,
-} from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import SingleLoader from "@/components/SingleLoader";
 const Singleblog = () => {
   // token
@@ -116,87 +105,6 @@ const Singleblog = () => {
     dispatch(GetCommentofblog(blogid));
   }, [blogid, dispatch]);
 
-  // method to hihglight the blog content very import for us
-  // Note - use chatgpt with understanding
-
-  const RenderQuillContent = ({ content }) => {
-    const copyToClipboard = (code) => {
-      navigator.clipboard.writeText(code).then(
-        () => {
-          toast.success("Code copied to clipboard!");
-        },
-        (err) => {
-          console.error("Failed to copy code: ", err);
-        }
-      );
-    };
-
-    const processContent = (htmlContent) => {
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = htmlContent;
-
-      const elements = Array.from(tempDiv.childNodes).map((node, index) => {
-        console.log(node, "node value");
-        if (node.nodeName === "PRE" && node.classList.contains("ql-syntax")) {
-          const language = "javascript"; // Default language (or detect dynamically if possible)
-          const code = node.textContent;
-
-          return (
-            <div
-              key={index}
-              className="relative mb-6 cmn-parent-bg shadow-none rounded-lg"
-            >
-              <button
-                onClick={() => copyToClipboard(code)}
-                className="absolute top-2 right-2 bg-[#d78330] text-white px-3 py-1 rounded-md text-sm"
-              >
-                Copy
-              </button>
-              <div className="p-4 mt-7 rounded-lg overflow-auto">
-                <SyntaxHighlighter
-                  language={language}
-                  style={vs2015}
-                  showLineNumbers
-                  customStyle={{
-                    background: "transparent",
-                    fontSize: "14px",
-                    color: "#e1d8cf", // Set code text color (gold/yellow for contrast)
-                  }}
-                >
-                  {code}
-                </SyntaxHighlighter>
-              </div>
-            </div>
-          );
-        }
-
-        // Render other content with `dangerouslySetInnerHTML`
-        return (
-          <div
-            className="max-w-none  text-[1rem]  leading-relaxed     "
-            key={index}
-            dangerouslySetInnerHTML={{
-              __html: node.innerHTML
-                .replace(
-                  /<strong>(.*?)<\/strong>/g,
-                  `<strong className="text-black" style="color:black;">$1</strong>`
-                )
-                .replace(
-                  /<code>(.*?)<\/code>/g,
-                  `<code style="color: #393736; font-family: monospace;">$1</code>`
-                ),
-            }}
-          />
-        );
-      });
-
-      console.log(elements, "node value");
-      return elements;
-    };
-
-    return <div className="prose max-w-none">{processContent(content)}</div>;
-  };
-
   return (
     <>
       {singleblogtstatus !== "fullfilled" ? (
@@ -238,26 +146,30 @@ const Singleblog = () => {
                     <img
                       src={singleblogdata?.file}
                       alt=""
-                      className="rounded-xl h-full w-full object-cover shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out"
+                      className="rounded-xl h-full w-full object-cover shadow-sm transition-shadow duration-300 ease-in-out"
                     />
                   </div>
-                  {/* <div className="flex flex-col gap-3">
-                   
-
-                    <div className="flex w-full gap-4 flex-wrap text-sm">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex w-full gap-4 flex-wrap px-4 text-sm">
                       {singleblogdata?.category?.map((tag, index) => (
                         <span
                           key={index}
-                          className="  cmn-text ubuntu-normal  hover:text-white cursor-default cmn-child-bg p-1 rounded-full "
+                          className="text-sm bg-[#7ba8dc3f] p-1 px-2  text-blue-700 rounded-full "
                         >
                           #{tag}
                         </span>
                       ))}
                     </div>
-                  </div> */}
+                  </div>
 
                   <div className="   sm:rounded-lg  p-2     leading-relaxed  sm:px-5 ">
-                    <RenderQuillContent content={singleblogdata?.content} />
+                    <div
+                      id="rich-text-content"
+                      className=" space-y-3  text-[##4B5563] "
+                      dangerouslySetInnerHTML={{
+                        __html: marked(singleblogdata?.content),
+                      }}
+                    />
                   </div>
                 </div>
               </div>
@@ -318,7 +230,7 @@ const Singleblog = () => {
                               </div>
                             )}
 
-                            {moment(value?.createdAt).format('ll')}
+                            {moment(value?.createdAt).format("ll")}
                           </div>
                         </div>
                       ))}

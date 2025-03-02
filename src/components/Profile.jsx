@@ -2,7 +2,7 @@ import React from "react";
 import Typewriter from "typewriter-effect";
 import { Button } from "./ui/button";
 import bglogo from "../components/Images/bglg6.gif";
-import { Link } from "react-router-dom";
+
 const Profile = () => {
   return (
     <>

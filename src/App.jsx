@@ -2,7 +2,7 @@ import "./App.css";
 import Home from "./Pages/Home";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Blog from "./Pages/Blog";
-import Projects from "./Pages/Projects";
+
 import About from "./Pages/About";
 import NewsLetter from "./Pages/NewsLetter";
 import Navbar from "./components/Navbar";
@@ -23,6 +23,7 @@ import Addblog from "./Pages/Addblog";
 import Verfiyotp from "./Pages/verfiyotp";
 import { Toaster } from "react-hot-toast";
 import Auth from "./utils/Auth";
+
 
 function App() {
   return (
@@ -50,21 +51,22 @@ function App() {
           {/* Protected routes */}
           <Route path="/">
             <Route index element={<Home />} />
+            <Route path="/category?" element={<Home />} />
             {/* <Route path="blog" element={<Blog />} /> */}
 
             <Route path="blog/:id" element={<Singleblog />} />
+          
 
-            {/* <Route path="projects" element={<Projects />} /> */}
             {/* Profile page routing */}
             <Route element={<Auth />}>
               <Route path="profile" element={<Profilepage />} />
 
               {/* Admin page routing */}
-              <Route path="admin" element={<AdminPage />}>
+              {/* <Route path="admin" element={<AdminPage />}>
                 <Route path="allblog" element={<Allblogpage />} />
                 <Route path="alluser" element={<AlluserPage />} />
                 <Route path="chartview" element={<ChartviewPage />} />
-              </Route>
+              </Route> */}
 
               {/* Other protected routes */}
               <Route path="updateblog/:id" element={<Addblog />} />
@@ -72,7 +74,6 @@ function App() {
             </Route>
 
             <Route path="about" element={<About />} />
-            {/* <Route path="newsletter" element={<NewsLetter />} /> */}
           </Route>
         </Routes>
 

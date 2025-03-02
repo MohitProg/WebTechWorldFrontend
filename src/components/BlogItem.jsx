@@ -1,22 +1,13 @@
 import React, { memo, useEffect, useState } from "react";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import { Link, useNavigate } from "react-router-dom";
-import ThumbUpRoundedIcon from "@mui/icons-material/ThumbUpRounded";
 import moment from "moment";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { CiHeart } from "react-icons/ci";
 import { FcLike } from "react-icons/fc";
 import { PiHeartBold } from "react-icons/pi";
 import { FaRegBookmark } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
-import { FaEdit } from "react-icons/fa";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { CiRead } from "react-icons/ci";
-import { FaRegComment } from "react-icons/fa";
+import { FaRegEdit } from "react-icons/fa";
 
 import {
   AddSavedBlogdata,
@@ -28,44 +19,24 @@ import {
   DeleteBlogtoState,
   DeleteStateofRecentblogdata,
   UpdateStateofrecentblogdata,
-  UpdateStateofSavedblogdata,
 } from "../Redux/Slice/blogslice";
 import toast from "react-hot-toast";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import { Tooltip } from "@mui/material";
+
 
 const BlogItem = ({ value }) => {
+  // dispatch
+  const dispatch = useDispatch();
   const Navigate = useNavigate();
+  // getting user id
+  const userid = localStorage.getItem("userid");
   // token
   const token = localStorage.getItem("token");
   // get recent blog data  for bookmark the state
   const { savedblogdata } = useSelector((state) => state.blog);
   const [bookmark, setbookmark] = useState(false);
 
-  useEffect(() => {
-    if (savedblogdata && savedblogdata.length > 0) {
-      const isBookmarked = savedblogdata.some(
-        (blog) => blog?._id === value?._id
-      );
-
-      setbookmark(isBookmarked);
-    }
-  }, [savedblogdata, bookmark]);
-
-  // getting user id
-  const userid = localStorage.getItem("userid");
-  // dispatch
-  const dispatch = useDispatch();
   // state to handle like and dislike the blog
   const [like, setlike] = useState({ like: false, count: 0 });
-
-  useEffect(() => {
-    setlike({
-      like: value?.likes?.includes(userid),
-      count: value?.likes?.length,
-    });
-  }, []);
-  // getting user id
 
   // functionality to  handle recent blog
   const HandleRecentblogdata = (value) => {
@@ -144,13 +115,34 @@ const BlogItem = ({ value }) => {
   const HandleUpdateblog = (blogid) => {
     Navigate(`/updateblog/${blogid}`);
   };
+
+  useEffect(() => {
+    if (savedblogdata && savedblogdata.length > 0) {
+      const isBookmarked = savedblogdata.some(
+        (blog) => blog?._id === value?._id
+      );
+
+      setbookmark(isBookmarked);
+    }
+  }, [savedblogdata, bookmark]);
+
+  useEffect(() => {
+    setlike({
+      like: value?.likes?.includes(userid),
+      count: value?.likes?.length,
+    });
+  }, []);
   return (
     <>
       <div key={value?._id}>
-        <div className="flex flex-col gap-3 space-y-3">
-          <img src={value?.file} className=" rounded-lg max-h-[40vh] object-cover" alt="" />
+        <div className="flex  flex-col gap-3 space-y-3">
+          <img
+            src={value?.file}
+            className=" rounded-lg max-h-[40vh] object-cover"
+            alt=""
+          />
 
-          <div className="flex flex-col md:w-[80%] mx-auto  space-y-5 px-2  ">
+          <div className="flex w-full flex-col  md:w-[80%] mx-auto  space-y-5 px-2  ">
             <h1 className="text-2xl font-bold  py-1">{value?.title}</h1>
 
             <div className="flex items-center gap-2 px-3 ">
@@ -159,18 +151,19 @@ const BlogItem = ({ value }) => {
                 className="h-10 w-10 rounded-full object-cover "
                 alt=""
               />
-              
 
               <div className="flex flex-col ">
-                <h1 className="text-sm font-semibold uppercase">{value?.Author?.name}</h1>
+                <h1 className="text-sm font-semibold uppercase">
+                  {value?.Author?.name}
+                </h1>
                 <span className="text-[0.8rem] text-gray-500 font-semibold">
-                  {moment(value?.createdAt).format('ll')}
+                  {moment(value?.createdAt).format("ll")}
                 </span>
               </div>
             </div>
             <div className="flex flex-col gap-3 items-start ">
               <p className="text-gray-600 text-[1rem] text-start leading-relaxed  ">
-                {value?.summary?.slice(0,200)}
+                {value?.summary?.slice(0, 200)}
               </p>
 
               <Link
@@ -181,61 +174,77 @@ const BlogItem = ({ value }) => {
                 Continue Reading..
               </Link>
 
-              <div className="flex  gap-3 items-center justify-end  w-full  p-2 ">
-                <div className="flex items-center gap-1">
-                  {like?.like ? (
-                    <button onClick={() => HandleReaction(value?._id)}>
-                      <Tooltip title="Like blog" arrow>
-                        <FcLike
-                          size={20}
-                          className="main-text  sm:hover:text-[#39e58c]"
-                        />
-                      </Tooltip>
-                    </button>
-                  ) : (
+              <div className="flex  gap-3 items-center justify-between  w-full  p-2 ">
+                <div>
+                  {value?.category?.map((value) => (
+                    <Link to={`/category?value=${value}`}  className="text-sm bg-[#7ba8dc3f] p-1 px-2  text-blue-700 rounded-full ">
+                      #{value}
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-1">
+                    {like?.like ? (
+                      <button onClick={() => HandleReaction(value?._id)}>
+                       
+                          <FcLike
+                            size={20}
+                            className="main-text  sm:hover:text-[#39e58c]"
+                          />
+                     
+                      </button>
+                    ) : (
+                      <button
+                        className=""
+                        onClick={() => HandleReaction(value?._id)}
+                      >
+                     
+                          <PiHeartBold size={20} />
+                     
+                      </button>
+                    )}
+
+                    <span className="text-gray-600">{like?.count}</span>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    {!bookmark ? (
+                      <button onClick={() => HandleSavedblog(value)}>
+                    
+                          <FaRegBookmark size={18} />
+                   
+                      </button>
+                    ) : (
+                      <button onClick={() => HandleSavedblog(value)}>
+                      
+                          <FaBookmark size={18} />
+                     
+                      </button>
+                    )}
+                  </div>
+
+                  {token?.length > 0 && (
                     <button
-                      className=""
-                      onClick={() => HandleReaction(value?._id)}
+                      onClick={() => DeleteuserBlog(value)}
+                      className=" flex items-center justify-center"
                     >
-                      <Tooltip title="Like blog" arrow>
-                        <PiHeartBold size={20} />
-                      </Tooltip>
+                      <MdOutlineDeleteOutline
+                        size={23}
+                        className="text-gray-800"
+                      />
                     </button>
                   )}
 
-                  <span className="text-gray-600">{like?.count}</span>
-                </div>
-
-                <div className="flex items-center gap-1">
-                {!bookmark ? (
+                  {token?.length > 0 && (
                     <button
-               
-                      onClick={() => HandleSavedblog(value)}
+                      onClick={()=>HandleUpdateblog(value?._id)}
+                      className=" flex items-center justify-center"
                     >
-                      <Tooltip title="Saved blog" arrow>
-                        <FaRegBookmark
-                          size={18}
-                          
-                        />
-                      </Tooltip>
-                    </button>
-                  ) : (
-                    <button
-                
-                      onClick={() => HandleSavedblog(value)}
-                    >
-                      <Tooltip title="Unsaved blog" arrow>
-                  
-                        <FaBookmark
-                          size={18}
-                         
-                        />
-                      </Tooltip>
+                      <FaRegEdit size={23} className="text-gray-800" />
                     </button>
                   )}
                 </div>
-
-             
               </div>
             </div>
           </div>

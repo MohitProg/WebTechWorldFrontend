@@ -11,7 +11,7 @@ import { FaRegSmileWink } from "react-icons/fa";
 
 let url="https://webtech-world-backend.vercel.app/"
 const ApiClient=axios.create({
-    baseURL:`https://webtech-world-backend.vercel.app/api/v1`,
+    baseURL:`${url}/api/v1`,
     headers:{
         "Content-Type":"application/json"
     }

@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
-
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import { useThemeContext } from "../context/ThemeContext";
-
-import Darkmodebtn from "./darkmodebtn";
-// import { Avatar } from "@mui/material";
 import SideMenu from "../modal/SideMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { GetSingleUserdata } from "../Redux/Api/userApi";
@@ -18,14 +11,16 @@ import {
   GetSavedBlogdata,
   GetUserblog,
 } from "../Redux/Api/blogApi";
+
 import Searchbar from "./Searchbar";
-import { Button } from "./ui/button";
 import TopMenuForMobile from "./TopMenuForMobile";
 import ProfileDropdown from "./ProfileDropdown";
-// import SideMenuForWeb from "./SideMenuForWeb";
-import { IoSearch } from "react-icons/io5";
+import CategoryDropdown from "./CategoryDropdown";
+import { UpdateCategoryValue } from "@/Redux/Slice/blogslice";
 
 const Navbar = () => {
+  const pathname=useLocation().pathname;
+  console.log(pathname)
   // dispatch
   const dispatch = useDispatch();
   // state for navigation
@@ -57,6 +52,8 @@ const Navbar = () => {
   } = useSelector((state) => state.blog);
   const token = localStorage.getItem("token");
 
+  console.log(category,"Api")
+
   // creating global data dispatching here
 
   useEffect(() => {
@@ -85,9 +82,6 @@ const Navbar = () => {
     pagevalue,
   ]);
 
-
-  console.log(token)
-
   // getting blog data according to pagination and blog data
   useEffect(() => {
     let timer;
@@ -99,6 +93,12 @@ const Navbar = () => {
       return () => clearTimeout(timer);
     }
   }, [pagevalue, searchvalue, category]);
+  useEffect(()=>{
+    if(pathname==="/"){
+      dispatch(UpdateCategoryValue(null))
+    }
+
+  },[pathname])
 
   return (
     <>
@@ -131,12 +131,8 @@ const Navbar = () => {
                 <Link className=" uppercase text-xs font-semibold   " to="/">
                   Home
                 </Link>
-                {/* <Link
-                  className=" uppercase text-xs font-semibold   "
-                  to={"projects"}
-                >
-                  Projects
-                </Link> */}
+               
+             <CategoryDropdown/>
                 <Link
                   className=" uppercase text-xs font-semibold   "
                   to="about"
@@ -158,8 +154,7 @@ const Navbar = () => {
                 </button>
               ) : (
                 <>
-               
-                <ProfileDropdown />
+                  <ProfileDropdown />
                 </>
               )}
             </div>
