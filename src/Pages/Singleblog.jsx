@@ -152,12 +152,14 @@ const Singleblog = () => {
                   <div className="flex flex-col gap-3">
                     <div className="flex w-full gap-4 flex-wrap px-4 text-sm">
                       {singleblogdata?.category?.map((tag, index) => (
+                       
                         <span
                           key={index}
                           className="text-sm bg-[#7ba8dc3f] p-1 px-2  text-blue-700 rounded-full "
                         >
                           #{tag}
                         </span>
+                        
                       ))}
                     </div>
                   </div>
@@ -165,7 +167,7 @@ const Singleblog = () => {
                   <div className="   sm:rounded-lg  p-2     leading-relaxed  sm:px-5 ">
                     <div
                       id="rich-text-content"
-                      className=" space-y-3  text-[##4B5563] "
+                      className=" space-y-3  text-[##4B5563]"
                       dangerouslySetInnerHTML={{
                         __html: marked(singleblogdata?.content),
                       }}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Postuserdata } from "../Redux/Slice/userSlice";
@@ -6,9 +6,6 @@ import { Signupuser } from "../Redux/Api/userApi";
 import toast from "react-hot-toast";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { CircularProgress } from "@mui/material";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import bgsign from "../components/Images/bglg.jpeg";
 const SignupPage = () => {
@@ -46,6 +43,11 @@ const SignupPage = () => {
         }
       });
   };
+
+   useEffect(()=>{
+  
+      document.title="WebTechBlog-Signup"
+    },[])
 
   return (
     <div className="w-full h-screen relative  bg-cover bg-black bg-center flex items-center justify-center p-5">

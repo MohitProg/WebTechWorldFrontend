@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BsUpload } from "react-icons/bs";
 
+
 const Addblog = () => {
   const imageRef = useRef();
   const Navigate = useNavigate();
@@ -41,6 +42,8 @@ const Addblog = () => {
     file: "",
   });
 
+  console.log(blogdata?.category,"category")
+
   const HandleSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -58,9 +61,10 @@ const Addblog = () => {
         dispatch(AddBlog(blogdata))
           .unwrap()
           .then((res) => {
-            if (res.success) {
-              toast.success(res.message);
-              dispatch(AddBlogstoState(res.data));
+            console.log(res)
+            if (res?.success) {
+              toast.success(res?.message);
+              dispatch(AddBlogstoState(res?.data));
               setblogdata({
                 category: "",
                 title: "",
@@ -71,7 +75,7 @@ const Addblog = () => {
 
               Navigate("/profile");
             } else {
-              toast.error(res.message);
+              toast.error(res?.message);
             }
           });
       }

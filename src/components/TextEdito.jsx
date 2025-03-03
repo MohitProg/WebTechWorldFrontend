@@ -1,19 +1,20 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import {marked} from "marked";
 
 import { Editor } from "@tinymce/tinymce-react";
 
 const TextEdito = ({ setblogdata, blogdata }) => {
 
-console.log(blogdata)
+console.log(  marked(blogdata?.content) ,"blogcontent")
 
-  
+
+
+
+
   return (
     <div >
-  
-
       <Editor
-        value={blogdata?.content}
+        value={marked(blogdata?.content)}
        
         apiKey="t79yy0gecouxwd6mpjbgc2vkzlr0zv1bjdh7jsahn7p288j6"
         init={{

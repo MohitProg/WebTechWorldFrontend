@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useThemeContext } from "../context/ThemeContext";
 
 const About = () => {
   const {darkmode}=useThemeContext();
+   useEffect(()=>{
+  
+      document.title="WebTechBlog-About"
+    },[])
   return (
     
     <div className="py-[10vh]">

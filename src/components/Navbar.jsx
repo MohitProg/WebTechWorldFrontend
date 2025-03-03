@@ -19,8 +19,8 @@ import CategoryDropdown from "./CategoryDropdown";
 import { UpdateCategoryValue } from "@/Redux/Slice/blogslice";
 
 const Navbar = () => {
-  const pathname=useLocation().pathname;
-  console.log(pathname)
+  const pathname = useLocation().pathname;
+  console.log(pathname);
   // dispatch
   const dispatch = useDispatch();
   // state for navigation
@@ -52,7 +52,7 @@ const Navbar = () => {
   } = useSelector((state) => state.blog);
   const token = localStorage.getItem("token");
 
-  console.log(category,"Api")
+  console.log(category, "Api");
 
   // creating global data dispatching here
 
@@ -93,12 +93,16 @@ const Navbar = () => {
       return () => clearTimeout(timer);
     }
   }, [pagevalue, searchvalue, category]);
-  useEffect(()=>{
-    if(pathname==="/"){
-      dispatch(UpdateCategoryValue(null))
+  useEffect(() => {
+    if (pathname === "/") {
+      dispatch(UpdateCategoryValue(null));
     }
+  }, [pathname]);
 
-  },[pathname])
+  // useeffect for title
+  useEffect(() => {
+    document.title = `WebTechBlog-${category == null ? "Home" : category}`;
+  }, [category]);
 
   return (
     <>
@@ -131,8 +135,8 @@ const Navbar = () => {
                 <Link className=" uppercase text-xs font-semibold   " to="/">
                   Home
                 </Link>
-               
-             <CategoryDropdown/>
+
+                <CategoryDropdown />
                 <Link
                   className=" uppercase text-xs font-semibold   "
                   to="about"

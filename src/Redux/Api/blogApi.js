@@ -11,10 +11,12 @@ export const AddBlog = createAsyncThunk("/addblog", async (blogdata) => {
       },
     });
 
+    console.log(res.data)
+
     return res.data;
   } catch (error) {
-    console.log(error);
-    toast.error(error.message);
+    // console.log(error.response.data);
+    toast.error(error?.response?.data?.message);
   }
 });
 
@@ -25,7 +27,7 @@ export const DeleteBlog = createAsyncThunk("/deleteblog", async (blogid) => {
     return res.data;
   } catch (error) {
     console.log(error);
-    toast.error(error.message);
+    toast.error(error?.response?.data?.message);
   }
 });
 
@@ -35,7 +37,7 @@ export const GetUserblog = createAsyncThunk("/getuserblog", async () => {
     return res.data;
   } catch (error) {
     console.log(error);
-    toast.error(error.message);
+    toast.error(error?.response?.data?.message);
   }
 });
 
@@ -50,7 +52,7 @@ export const UpdateUserBlog = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error?.response?.data?.message);
     }
   }
 );
@@ -68,7 +70,7 @@ export const GetAllblogs = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error?.response?.data?.message);
     }
   }
 );
@@ -79,7 +81,7 @@ export const GetblogbyId = createAsyncThunk("/getblogid", async (blogid) => {
     return res.data;
   } catch (error) {
     console.log(error);
-    toast.error(error.message);
+    toast.error(error?.response?.data?.message);
   }
 });
 
@@ -99,7 +101,7 @@ export const Getblogbycategory = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error?.response?.data?.message);
     }
   }
 );
@@ -113,7 +115,7 @@ export const Updaterecentblogdata = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error?.response?.data?.message);
     }
   }
 );
@@ -125,7 +127,7 @@ export const Getrecentblogdata = createAsyncThunk("/recentblog", async () => {
     return res.data;
   } catch (error) {
     console.log(error);
-    toast.error(error.message);
+    toast.error(error?.response?.data?.message);
   }
 });
 
@@ -138,7 +140,7 @@ export const AddSavedBlogdata = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error?.response?.data?.message);
     }
   }
 );
@@ -152,7 +154,7 @@ export const GetSavedBlogdata = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error?.response?.data?.message);
     }
   }
 );
@@ -166,7 +168,7 @@ export const Likeandisliketheblog = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error?.response?.data?.message);
     }
   }
 );
