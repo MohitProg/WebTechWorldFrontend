@@ -29,6 +29,7 @@
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "input-otp": "^1.4.1",
+    "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.468.0",
     "marked": "^15.0.7",
     "moment": "^2.30.1",

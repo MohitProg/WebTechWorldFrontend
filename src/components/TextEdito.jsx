@@ -1,22 +1,24 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { marked } from "marked";
 
 import { Editor } from "@tinymce/tinymce-react";
 const TextEdito = ({ setblogdata, blogdata }) => {
-  console.log("Page Render")
-
+  const editorRef = useRef(null);
   const onEditorChange = useCallback(
     (newContent) => setblogdata((prev) => ({ ...prev, content: newContent })),
     [setblogdata]
   );
 
-  
+
+
+
 
   return (
     <div>
       <Editor
         value={marked(blogdata?.content)}
         apiKey="t79yy0gecouxwd6mpjbgc2vkzlr0zv1bjdh7jsahn7p288j6"
+        onInit={(evt, editor) => (editorRef.current = editor)}
         init={{
           min_height: 800,
           plugins:
@@ -24,17 +26,19 @@ const TextEdito = ({ setblogdata, blogdata }) => {
           toolbar:
             "undo redo | blocks | bold italic underline strikethrough forecolor backcolor | " +
             "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent codesample | " +
-            "link image media table  | removeformat | help" +"code codesample",
-          codesample_languages: [
-            { text: "HTML/XML", value: "markup" },
-            { text: "JavaScript", value: "javascript" },
-            { text: "CSS", value: "css" },
-            { text: "Python", value: "python" },
-            { text: "PHP", value: "php" },
-            { text: "Java", value: "java" },
-            { text: "C", value: "c" },
-            { text: "C++", value: "cpp" },
-          ],
+            "link image media table  | removeformat | help" +
+            "code codesample",
+            codesample_languages: [
+              { text: "HTML/XML", value: "markup" },
+              { text: "JavaScript", value: "javascript" },
+              { text: "Node.js", value: "javascript" }, // Use "javascript" for Node.js
+              { text: "CSS", value: "css" },
+              { text: "Python", value: "python" },
+              { text: "PHP", value: "php" },
+              { text: "Java", value: "java" },
+              { text: "C", value: "c" },
+              { text: "C++", value: "cpp" },
+            ],
           image_advtab: true,
           images_upload_url: "/upload",
           automatic_uploads: true,
@@ -81,8 +85,8 @@ const TextEdito = ({ setblogdata, blogdata }) => {
           },
         }}
 
-
         onEditorChange={onEditorChange}
+        
       />
     </div>
   );
