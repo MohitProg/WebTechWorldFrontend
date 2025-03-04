@@ -94,7 +94,7 @@ const EditProfileModal = ({
                 src={file ? URL.createObjectURL(file) : user?.avatar}
                 sx={{ height: "100px", width: "100px" }}
               />
-              <Input
+              <input
                 type="file"
                 onChange={(e) => {
                   setuser({ ...user, avatar: e.target.files[0] }),
@@ -105,7 +105,7 @@ const EditProfileModal = ({
                 ref={ref}
               />
               <div
-              className="text-blue-500 bg-[#1c1f26] hover:ring-1 cursor-pointer flex items-center justify-center p-1 hover:bg-[] rounded-full"
+              className=" text-sm bg-gray-300 rounded-sm p-1 text-blue-500 "
              
                 onClick={() => ref.current.click()}
               >
@@ -115,15 +115,15 @@ const EditProfileModal = ({
 
             {/* Username Field */}
             <div className="flex flex-col gap-2">
-              <Label  className="cmn-text">
+              <label className="block text-gray-600 ">
                 Username
-              </Label>
-              <Input
+              </label>
+              <input
                 name="name"
                 value={user?.name}
                 onChange={(e) => setuser({ ...user, name: e.target.value })}
                 type="text"
-                 className=" cmn-input"
+               className=" p-2 outline-none  w-full border-gray-600  border-[1px] text-black"
                 placeholder="Enter your username"
               />
             </div>
@@ -132,14 +132,14 @@ const EditProfileModal = ({
 
             {/* Bio Field */}
             <div className="flex flex-col gap-2">
-              <Label  className="cmn-text">
+              <label  className="block text-gray-600 ">
                 Bio
-              </Label>
+              </label>
               <Textarea
                 name="desc"
                 value={user?.desc}
                 onChange={(e) => setuser({ ...user, desc: e.target.value })}
-                className="cmn-input"
+               className=" p-2 outline-none  w-full border-gray-600  border-[1px] text-black"
                
                 placeholder="A short bio about yourself"
                 rows="3"
@@ -151,9 +151,9 @@ const EditProfileModal = ({
               
 
           
-              <Button  onClick={HandleUpdateuser} type="submit" className=" bg-blue-500 hover:bg-blue-600">
+              <button  onClick={HandleUpdateuser} type="submit" className="  text-white hover:bg-white hover:text-black hover:border-[1px] hover:border-black   bg-[#000000]  p-2  flex items-center justify-center  w-full">
                 Save
-              </Button>
+              </button>
             </div>
           </form>
 

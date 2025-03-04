@@ -6,7 +6,7 @@ import { Pagination } from "@mui/material";
 import Loader from "../components/Loader";
 import Searchbar from "@/components/Searchbar";
 import { useLocation } from "react-router-dom";
-import { UpdateCategoryValue } from "@/Redux/Slice/blogslice";
+import { UpdateCategoryValue, UpdatePageValue } from "@/Redux/Slice/blogslice";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -36,33 +36,36 @@ const Home = () => {
           </div>
 
           {getallblogstatus === "pending" ? (
-            // Display the loader when the status is pending
-            <Loader />
-          ) : getallblogs && getallblogs.length > 0 ? (
-            <>
-              <div className="sm:py-3 sm:mt-3 grid grid-cols-1 gap-6 sm:grid-cols-1 sm:gap-6 ">
-                {getallblogs.map((value) => (
-                  <BlogItem value={value} key={value._id} />
-                ))}
-              </div>
+  // Display the loader when the status is pending
+  <Loader />
+) : getallblogs && Array.isArray(getallblogs) && getallblogs.length > 0 ? (
+  <>
+    <div className="sm:py-3 sm:mt-3 grid grid-cols-1 gap-6 sm:grid-cols-1 sm:gap-6">
+      {getallblogs.map((value) => (
+        <BlogItem value={value} key={value._id} />
+      ))}
+    </div>
 
-              <div className="p-2 flex items-center justify-start mt-3">
-                <Pagination
-                  count={Math.ceil(totalvalue / 8)}
-                  onChange={HanldePagination}
-                  variant="outlined"
-                  color="primary"
-                />
-              </div>
-            </>
-          ) : (
-            // Display "No Blog is Available" if status is fulfilled but there are no blogs
-            <div className="w-full flex items-center justify-center h-screen">
-              <h1 className="font-semibold ubuntu-regular-italic cmn-text">
-                No Blog is Available
-              </h1>
-            </div>
-          )}
+    {totalvalue > 8 && (
+      <div className="p-2 flex items-center justify-start mt-3">
+        <Pagination
+          count={Math.ceil(totalvalue / 8)}
+          onChange={HanldePagination}
+          variant="outlined"
+          color="primary"
+        />
+      </div>
+    )}
+  </>
+) : getallblogstatus === "fulfilled" ? (
+  // Display "No Blog is Available" only if status is fulfilled and no blogs exist
+  <div className="w-full flex items-center justify-center h-screen">
+    <h1 className="font-semibold ubuntu-regular-italic cmn-text">
+      No Blog is Available
+    </h1>
+  </div>
+) : null}
+
         </section>
       </div>
     </>

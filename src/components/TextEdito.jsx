@@ -1,34 +1,49 @@
-import React, { useEffect, useState } from "react";
-import {marked} from "marked";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { marked } from "marked";
 
 import { Editor } from "@tinymce/tinymce-react";
-
 const TextEdito = ({ setblogdata, blogdata }) => {
+  console.log("Page Render")
 
-console.log(  marked(blogdata?.content) ,"blogcontent")
+  const onEditorChange = useCallback(
+    (newContent) => setblogdata((prev) => ({ ...prev, content: newContent })),
+    [setblogdata]
+  );
 
-
-
-
+  
 
   return (
-    <div >
+    <div>
       <Editor
         value={marked(blogdata?.content)}
-       
         apiKey="t79yy0gecouxwd6mpjbgc2vkzlr0zv1bjdh7jsahn7p288j6"
         init={{
           min_height: 800,
-          plugins: "image  link media table code lists advlist paste codesample",
+          plugins:
+            "image   link media table code codesample lists advlist paste codesample",
           toolbar:
             "undo redo | blocks | bold italic underline strikethrough forecolor backcolor | " +
             "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent codesample | " +
-            "link image media table code | removeformat | help",
+            "link image media table  | removeformat | help" +"code codesample",
+          codesample_languages: [
+            { text: "HTML/XML", value: "markup" },
+            { text: "JavaScript", value: "javascript" },
+            { text: "CSS", value: "css" },
+            { text: "Python", value: "python" },
+            { text: "PHP", value: "php" },
+            { text: "Java", value: "java" },
+            { text: "C", value: "c" },
+            { text: "C++", value: "cpp" },
+          ],
           image_advtab: true,
           images_upload_url: "/upload",
           automatic_uploads: true,
           file_picker_types: "image",
           images_reuse_filename: true,
+          content_css:
+            "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css",
+          codesample_content_css:
+            "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/theme/material.min.css",
           content_style: "img { max-width: 100%; height: auto; cursor: move; }",
           setup: (editor) => {
             editor.on("init", () => {
@@ -65,10 +80,12 @@ console.log(  marked(blogdata?.content) ,"blogcontent")
             });
           },
         }}
-        onEditorChange={(newContent) => setblogdata({...blogdata,content:newContent})}
+
+
+        onEditorChange={onEditorChange}
       />
     </div>
   );
 };
 
-export default TextEdito;
+export default memo(TextEdito);

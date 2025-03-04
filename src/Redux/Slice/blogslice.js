@@ -11,19 +11,18 @@ import {
   GetSavedBlogdata,
   GetUserblog,
   Likeandisliketheblog,
-
   Updaterecentblogdata,
   UpdateUserBlog,
 } from "../Api/blogApi";
 const initialState = {
-  searchvalue:"",
+  searchvalue: "",
   userblog: [],
   getallblogs: [],
   recentblogdata: [],
   singleblogdata: [],
   blogsbycategory: [],
   savedblogdata: [],
-  category:"All Blogs",
+  category: "All Blogs",
   pagevalue: 1,
   totalvalue: "",
   likedblogstatus: "idle",
@@ -37,9 +36,8 @@ const initialState = {
   deleteblogstatus: "idle",
   userblogstatus: "idle",
   postblogstatus: "idle",
-  searchblogstatus:"idle",
-  updateblogstatus:"idle"
-
+  searchblogstatus: "idle",
+  updateblogstatus: "idle",
 };
 export const BlogSlice = createSlice({
   name: "blog",
@@ -47,7 +45,7 @@ export const BlogSlice = createSlice({
 
   reducers: {
     AddBlogstoState: (state, action) => {
-      state.userblog = [...state.userblog, action.payload];
+      state.userblog = [action.payload,...state.userblog];
       state.getallblogs = [, action.payload, ...state.getallblogs];
     },
 
@@ -87,13 +85,30 @@ export const BlogSlice = createSlice({
       state.pagevalue = action.payload;
     },
 
-    UpdateSearchvalue:(state,action)=>{
-      state.searchvalue=action.payload;
+    UpdateSearchvalue: (state, action) => {
+      state.searchvalue = action.payload;
     },
 
-    UpdateCategoryValue:(state,action)=>{
-state.category=action.payload;
-    }
+    UpdateCategoryValue: (state, action) => {
+      state.category = action.payload;
+    },
+
+    updateStateofUserblogAfterUpdateblog: (state, action) => {
+      console.log(action.payload);
+  
+
+      if (action?.payload !== undefined) {
+        const {userblog}=state;
+        let userblogdata=JSON.parse(JSON.stringify(userblog))
+        let index=userblogdata.findIndex((value)=>value._id==action.payload._id);
+        console.log(index)
+        userblogdata.splice(index,1,action.payload);
+
+        state.userblog=[...userblogdata]
+
+      
+      }
+    },
   },
 
   extraReducers: (builder) => {
@@ -261,8 +276,8 @@ state.category=action.payload;
         state.likedblogstatus = "rejected";
       });
 
-      // update blgodata 
-      builder
+    // update blgodata
+    builder
       .addCase(UpdateUserBlog.pending, (state, action) => {
         state.updateblogstatus = "pending";
       })
@@ -272,7 +287,6 @@ state.category=action.payload;
       .addCase(UpdateUserBlog.rejected, (state, action) => {
         state.updateblogstatus = "rejected";
       });
-    
   },
 });
 
@@ -285,5 +299,6 @@ export const {
   UpdateStateofSavedblogdata,
   DeleteStateofRecentblogdata,
   UpdateSearchvalue,
-  UpdateCategoryValue
+  UpdateCategoryValue,
+  updateStateofUserblogAfterUpdateblog,
 } = BlogSlice.actions;

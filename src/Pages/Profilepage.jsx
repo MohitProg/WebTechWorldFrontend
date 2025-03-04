@@ -19,10 +19,13 @@ const Profilepage = () => {
   const { userblog, savedblogdata, getsaveblogstatus, userblogstatus } =
     useSelector((state) => state.blog);
 
+    console.log(userblog,"final data")
   // state for tabs
   const [tabs, settabs] = useState({
     tab: "Your blog",
   });
+
+  
 
   return (
     <>

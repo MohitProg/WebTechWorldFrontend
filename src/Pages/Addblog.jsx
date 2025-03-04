@@ -5,15 +5,40 @@ import { IoIosClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { AddBlog, GetblogbyId, UpdateUserBlog } from "../Redux/Api/blogApi";
 import toast from "react-hot-toast";
-import { AddBlogstoState } from "../Redux/Slice/blogslice";
+import { AddBlogstoState, updateStateofUserblogAfterUpdateblog } from "../Redux/Slice/blogslice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BsUpload } from "react-icons/bs";
-
+import Loader from "@/components/Loader";
 
 const Addblog = () => {
   const imageRef = useRef();
   const Navigate = useNavigate();
+  const id = useLocation().pathname.split("/");
+  const updateblogid = id[2];
+  // dispatch
+  const dispatch = useDispatch();
+
+  const  singleblogdata =useSelector(
+    (state) => state.blog.singleblogdata
+  )
+  const singleblogtstatus = useSelector((state) => state.blog.singleblogtstatus);
+  console.log(singleblogtstatus,"status")
+
+  console.log(singleblogdata)
+  // state for hanlde blog data
+  const [blogdata, setblogdata] = useState({
+    category: [],
+    title: "",
+    summary: "",
+    content: "",
+    file: "",
+  });
+  // state for file
+  const [file, setfile] = useState(null);
+  // state for update and addblog tongle
+  const [Btntoggle, setBtntoggle] = useState(false);
+  // Track when the first effect finishes dispatching
 
   const handleChange = (event) => {
     const {
@@ -23,26 +48,6 @@ const Addblog = () => {
 
     setblogdata({ ...blogdata, category: category });
   };
-
-  // starting main functionality from here
-
-  const { singleblogdata, singleblogtstatus } = useSelector(
-    (state) => state.blog
-  );
-
-  // dispatch
-  const dispatch = useDispatch();
-
-  // state for hanlde blog data
-  const [blogdata, setblogdata] = useState({
-    category: [],
-    title: "",
-    summary: "",
-    content: "",
-    file: "",
-  });
-
-  console.log(blogdata?.category,"category")
 
   const HandleSubmit = useCallback(
     (e) => {
@@ -61,7 +66,7 @@ const Addblog = () => {
         dispatch(AddBlog(blogdata))
           .unwrap()
           .then((res) => {
-            console.log(res)
+            console.log(res);
             if (res?.success) {
               toast.success(res?.message);
               dispatch(AddBlogstoState(res?.data));
@@ -83,80 +88,65 @@ const Addblog = () => {
     [blogdata]
   );
 
-  // state for file
-  const [file, setfile] = useState(null);
-
   // get blog data for update the existing blog  update functionality start from here
 
-  const id = useLocation().pathname.split("/");
-  console.log(id[2]);
-  // state for update and addblog tongle
-  const [Btntoggle, setBtntoggle] = useState(false);
-
-  const updateblogid = id[2];
-  // Track when the first effect finishes dispatching
-  const [isFirstEffectComplete, setIsFirstEffectComplete] = useState(false);
   // First useEffect
   useEffect(() => {
-    console.log("useeffect 1");
-    const fetchData = async () => {
-      if (updateblogid?.length > 0 && updateblogid !== null) {
-        try {
-          setBtntoggle(true);
-          await dispatch(GetblogbyId(updateblogid)).unwrap();
-          setIsFirstEffectComplete(true); // Mark the first effect as complete
-        } catch (error) {
-          console.error("Error fetching blog by ID:", error);
-        }
-      }
-    };
-
-    fetchData();
-  }, [updateblogid]);
+    if (updateblogid) {
+      setBtntoggle(true);
+      dispatch(GetblogbyId(updateblogid)).unwrap();
+    }
+  }, [dispatch, updateblogid]);
 
   // Second useEffect
   useEffect(() => {
-    console.log("useeffect 2");
-    if (isFirstEffectComplete && Btntoggle) {
-      setblogdata({
-        title: singleblogdata?.title,
-        category: singleblogdata?.category,
-        content: singleblogdata?.content,
-        summary: singleblogdata?.summary,
-        file: singleblogdata?.file,
-      });
+    if (singleblogdata && updateblogid) {
+      setblogdata((prev) => ({
+        ...prev,
+        title: singleblogdata?.title || "",
+        category: singleblogdata?.category || [],
+        content: singleblogdata?.content || "",
+        summary: singleblogdata?.summary || "",
+        file: singleblogdata?.file || "",
+      }));
     }
-  }, [isFirstEffectComplete, Btntoggle, singleblogdata]);
-
-  console.log(blogdata.content);
+  }, [singleblogdata, updateblogid]);
 
   // handle to update blog
+  const HandleUpdateBlog = useCallback(
+    (e) => {
+      e.preventDefault();
 
-  const HandleUpdateBlog = (e) => {
-    e.preventDefault();
+      try {
+        const formdata = new FormData();
+        formdata.append("title", blogdata?.title);
+        formdata.append("category", blogdata?.category);
+        formdata.append("summary", blogdata?.summary);
+        formdata.append("content", blogdata?.content);
+        formdata.set("file", blogdata?.file);
 
-    const formdata = new FormData();
-    formdata.append("title", blogdata?.title);
-    formdata.append("category", blogdata?.category);
-    formdata.append("summary", blogdata?.summary);
-    formdata.append("content", blogdata?.content);
-    formdata.append("file", blogdata?.file);
-    console.log(updateblogid, formdata);
+        console.log(formdata, "Page Render");
 
-    if (updateblogid?.length > 0 && updateblogid !== null) {
-      dispatch(UpdateUserBlog({ formdata, updateblogid }))
-        .unwrap()
-        .then((res) => {
-          console.log(res);
-          if (res.success) {
-            Navigate("/profile");
-            toast.success(res.message);
-          } else {
-            toast.error(res.message);
-          }
-        });
-    }
-  };
+        if (updateblogid?.length > 0 && updateblogid !== null) {
+          dispatch(UpdateUserBlog({ formdata, updateblogid }))
+            .unwrap()
+            .then((res) => {
+            
+              if (res.success) {
+                Navigate("/profile");
+                toast.success(res.message);
+                dispatch(updateStateofUserblogAfterUpdateblog(res?.data))
+              } else {
+                toast.error(res.message);
+              }
+            });
+        }
+      } catch (error) {
+        console.log(error, "Page Render");
+      }
+    },
+    [Navigate, blogdata, updateblogid]
+  );
 
   // state for tag management
 
@@ -178,9 +168,14 @@ const Addblog = () => {
     setblogdata({ ...blogdata, category: finalTag });
   };
 
+  console.log("Page Render");
+
+  console.log(blogdata, "Page Render");
+
   return (
     <>
-      <div className="  min-h-screen m p-6   mx-auto ">
+
+    {singleblogtstatus==="pending"?<Loader/>:  <div className="  min-h-screen m p-6   mx-auto ">
         <h2 className="text-xl text-center   text-black font-semibold  mb-6">
           Add New Blog
         </h2>
@@ -242,15 +237,25 @@ const Addblog = () => {
                 accept="image/*"
               />
 
-              {file !== null && (
-                <div className="flex items-center  justify-start w-full p-3">
-                  <img
-                    src={file && URL.createObjectURL(file)}
-                    className=" h-60  object-contain"
-                    alt="thumbnail image "
-                  />
-                </div>
-              )}
+              {file !== null
+                ? file && (
+                    <div className="flex items-center  justify-start w-full p-3">
+                      <img
+                        src={URL.createObjectURL(file)}
+                        className=" h-60  object-contain"
+                        alt="thumbnail image "
+                      />
+                    </div>
+                  )
+                : blogdata?.file && (
+                    <div className="flex items-center  justify-start w-full p-3">
+                      <img
+                        src={blogdata?.file}
+                        className=" h-60  object-contain"
+                        alt="thumbnail image "
+                      />
+                    </div>
+                  )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -269,7 +274,7 @@ const Addblog = () => {
               <div className="flex gap-2 flex-wrap">
                 {blogdata?.category &&
                   blogdata?.category?.map((value, ind) => (
-                    <span className="flex text-sm  bg-[#7ba8dc3f] p-1 px-2  text-blue-700 rounded-full justify-center items-center">
+                    <span key={ind} className="flex text-sm  bg-[#7ba8dc3f] p-1 px-2  text-blue-700 rounded-full justify-center items-center">
                       {value}{" "}
                       <IoIosClose
                         onClick={() => HandleDelete(ind)}
@@ -307,7 +312,8 @@ const Addblog = () => {
             </div>
           </div>
         </form>
-      </div>
+      </div>}
+    
     </>
   );
 };

@@ -9,8 +9,8 @@ import { SiPostman } from "react-icons/si";
 import { FaGithub } from "react-icons/fa";
 import { FaRegSmileWink } from "react-icons/fa";
 
-let url="https://webtech-world-backend.vercel.app"
-
+let url="https://personalwebbackend-4cb2.onrender.com"
+// let url="https://webtech-world-backend.vercel.app"
 // let url="http://localhost:8000"
 const ApiClient=axios.create({
     baseURL:`${url}/api/v1`,
@@ -18,6 +18,8 @@ const ApiClient=axios.create({
         "Content-Type":"application/json"
     }
 })
+
+
 
 ApiClient.interceptors.request.use(
     (config) => {

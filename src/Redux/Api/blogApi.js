@@ -47,7 +47,11 @@ export const UpdateUserBlog = createAsyncThunk(
     try {
       const res = await ApiClient.put(
         `/blog/updateblog/${updateblogid}`,
-        formdata
+        formdata,{
+          headers:{
+           "content-type": "multipart/form-data"
+          }
+        }
       );
       return res.data;
     } catch (error) {
