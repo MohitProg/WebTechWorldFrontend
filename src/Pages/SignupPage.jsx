@@ -8,6 +8,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Label } from "@/components/ui/label";
 import bgsign from "../components/Images/bglg.jpeg";
+import { ClipLoader } from "react-spinners";
 const SignupPage = () => {
   const { signupstatus } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -145,7 +146,10 @@ const SignupPage = () => {
           </div>
 
           {/* <!-- Login Button --> */}
-          <button className="text-white hover:bg-white  hover:text-black hover:border-[1px] hover:border-black   bg-[#000000]  p-2  flex items-center justify-center  w-full">Signup</button>
+          <button className="text-white hover:bg-white  hover:text-black hover:border-[1px] hover:border-black   bg-[#000000]  p-2  flex items-center justify-center  w-full">
+            {signupstatus==="pending"?<ClipLoader color="#f38d07cc0"  size={20}/>:"Singup"}
+          
+            </button>
 
           {/* <!-- Additional Links --> */}
           <div className="flex items-center justify-between mt-4 text-sm">

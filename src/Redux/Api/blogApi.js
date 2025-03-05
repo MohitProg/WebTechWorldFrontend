@@ -11,11 +11,11 @@ export const AddBlog = createAsyncThunk("/addblog", async (blogdata) => {
       },
     });
 
-    console.log(res.data)
+    (res.data)
 
     return res.data;
   } catch (error) {
-    // console.log(error.response.data);
+    // (error.response.data);
     toast.error(error?.response?.data?.message);
   }
 });
@@ -26,7 +26,7 @@ export const DeleteBlog = createAsyncThunk("/deleteblog", async (blogid) => {
 
     return res.data;
   } catch (error) {
-    console.log(error);
+    (error);
     toast.error(error?.response?.data?.message);
   }
 });
@@ -36,7 +36,7 @@ export const GetUserblog = createAsyncThunk("/getuserblog", async () => {
     const res = await ApiClient.get("/blog/getuserblogs");
     return res.data;
   } catch (error) {
-    console.log(error);
+    (error);
     toast.error(error?.response?.data?.message);
   }
 });
@@ -55,7 +55,7 @@ export const UpdateUserBlog = createAsyncThunk(
       );
       return res.data;
     } catch (error) {
-      console.log(error);
+      (error);
       toast.error(error?.response?.data?.message);
     }
   }
@@ -64,7 +64,7 @@ export const UpdateUserBlog = createAsyncThunk(
 export const GetAllblogs = createAsyncThunk(
   "/getallblogs",
   async ({ pagevalue, searchvalue, category }) => {
-    console.log(category,"api")
+    (category,"api")
     try {
       const res = await ApiClient.get(
         `/blog/getblogs?page=${pagevalue || 1}&limit=${6}&search=${
@@ -73,7 +73,7 @@ export const GetAllblogs = createAsyncThunk(
       );
       return res.data;
     } catch (error) {
-      console.log(error);
+      (error);
       toast.error(error?.response?.data?.message);
     }
   }
@@ -84,7 +84,7 @@ export const GetblogbyId = createAsyncThunk("/getblogid", async (blogid) => {
     const res = await ApiClient.get(`/blog/getblogs/${blogid}`);
     return res.data;
   } catch (error) {
-    console.log(error);
+    (error);
     toast.error(error?.response?.data?.message);
   }
 });
@@ -93,7 +93,7 @@ export const GetblogbyId = createAsyncThunk("/getblogid", async (blogid) => {
 export const Getblogbycategory = createAsyncThunk(
   "/category",
   async (blogcategory) => {
-    console.log(Object.keys(blogcategory));
+    (Object.keys(blogcategory));
     let query = {
       category: blogcategory,
     };
@@ -104,7 +104,7 @@ export const Getblogbycategory = createAsyncThunk(
       const res = await ApiClient.get(`/blog/category/?${params}`);
       return res.data;
     } catch (error) {
-      console.log(error);
+      (error);
       toast.error(error?.response?.data?.message);
     }
   }
@@ -118,7 +118,7 @@ export const Updaterecentblogdata = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      (error);
       toast.error(error?.response?.data?.message);
     }
   }
@@ -130,7 +130,7 @@ export const Getrecentblogdata = createAsyncThunk("/recentblog", async () => {
 
     return res.data;
   } catch (error) {
-    console.log(error);
+    (error);
     toast.error(error?.response?.data?.message);
   }
 });
@@ -143,7 +143,7 @@ export const AddSavedBlogdata = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      (error);
       toast.error(error?.response?.data?.message);
     }
   }
@@ -157,7 +157,7 @@ export const GetSavedBlogdata = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      (error);
       toast.error(error?.response?.data?.message);
     }
   }
@@ -171,7 +171,7 @@ export const Likeandisliketheblog = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      (error);
       toast.error(error?.response?.data?.message);
     }
   }

@@ -19,7 +19,7 @@ const Profilepage = () => {
   const { userblog, savedblogdata, getsaveblogstatus, userblogstatus } =
     useSelector((state) => state.blog);
 
-    console.log(userblog,"final data")
+    (userblog,"final data")
   // state for tabs
   const [tabs, settabs] = useState({
     tab: "Your blog",
@@ -62,9 +62,9 @@ const Profilepage = () => {
           <div className="text-gray-600    flex items-center justify-between py-2 ">
             <ul className="   flex  items-center justify-start gap-3  ">
               <li onClick={() => settabs({ tab: "Your blog" })}>
-                <btton className="bg-black cursor-pointer text-sm text-white p-2  ">
+                <button className="bg-black cursor-pointer text-sm text-white p-2  ">
                   My Blog
-                </btton>
+                </button>
               </li>
               <li onClick={() => settabs({ tab: "Saved blog" })}>
                 <button className="bg-black cursor-pointer text-sm text-white p-2 ">

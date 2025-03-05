@@ -5,6 +5,7 @@ import SideMenu from "../modal/SideMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { GetSingleUserdata } from "../Redux/Api/userApi";
 import toast from "react-hot-toast";
+import { IoMenu } from "react-icons/io5";
 import {
   GetAllblogs,
   Getrecentblogdata,
@@ -19,8 +20,10 @@ import CategoryDropdown from "./CategoryDropdown";
 import { UpdateCategoryValue } from "@/Redux/Slice/blogslice";
 
 const Navbar = () => {
+  // state for navtoggle 
+  const [ToggleNav,setToggleNav]=useState(false)
   const pathname = useLocation().pathname;
-  console.log(pathname);
+  (pathname);
   // dispatch
   const dispatch = useDispatch();
   // state for navigation
@@ -35,7 +38,7 @@ const Navbar = () => {
   // Naviagte function for login page
 
   const HandleNaviagte = () => {
-    console.log("mohit sharma");
+    ("mohit sharma");
     Navigation("/login");
   };
 
@@ -52,7 +55,7 @@ const Navbar = () => {
   } = useSelector((state) => state.blog);
   const token = localStorage.getItem("token");
 
-  console.log(category, "Api");
+  (category, "Api");
 
   // creating global data dispatching here
 
@@ -138,7 +141,7 @@ const Navbar = () => {
 
                 <CategoryDropdown />
                 <Link
-                  className=" uppercase text-xs font-semibold   "
+                  className=" w-full uppercase text-xs font-semibold   "
                   to="about"
                 >
                   About me
@@ -164,7 +167,10 @@ const Navbar = () => {
             </div>
 
             <div className=" lg:hidden flex  gap-2 ">
-              <TopMenuForMobile />
+              <button onClick={()=>setToggleNav(!ToggleNav)}>
+                  <IoMenu size={25} className="text-black" />
+              </button>
+              <TopMenuForMobile setToggleNav={setToggleNav} ToggleNav={ToggleNav} />
             </div>
           </div>
         </nav>

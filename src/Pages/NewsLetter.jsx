@@ -11,7 +11,7 @@ const NewsLetter = () => {
   const { blogsbycategory, blogcategorystatus } = useSelector(
     (state) => state.blog
   );
-  console.log(blogsbycategory);
+  (blogsbycategory);
 
   // getblogs according to category \
   // Note : here category will be regarded to news

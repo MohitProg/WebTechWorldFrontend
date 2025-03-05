@@ -7,12 +7,12 @@ export const Signupuser=createAsyncThunk("/signup",async(userdata)=>{
     try {
         
         const res=await ApiClient.post("/user/signup",userdata)
-        // console.log(res.data)
+        // (res.data)
         return res.data
 
 
     } catch (error) {
-        console.log(error)
+        (error)
         toast.error(error.message)
     }
 
@@ -22,12 +22,12 @@ export const LoginUser=createAsyncThunk("/login",async(userdata)=>{
     try {
         
         const res=await ApiClient.post("/user/login",userdata)
-        // console.log(res.data)
+        // (res.data)
         return res.data
 
 
     } catch (error) {
-        console.log(error);
+        (error);
         toast.error(error.message)
     }
 
@@ -38,12 +38,12 @@ export const VerifyOtp=createAsyncThunk("/otp",async(otp)=>{
     try {
         
         const res=await ApiClient .post("/user/verify/otp",otp)
-        console.log(res.data)
+        (res.data)
         return res.data;
 
 
     } catch (error) {
-        console.log(error)
+        (error)
         toast.error(error.message)
     }
 
@@ -60,7 +60,7 @@ export const GetSingleUserdata=createAsyncThunk("/user/getuser",async(userdata)=
         localStorage.setItem("userid",res.data?.data?._id)
         return res.data
     } catch (error) {
-        console.log(error)
+        (error)
         toast.error(error.message)
     }
 
@@ -79,7 +79,7 @@ export const UpdateUser=createAsyncThunk("/user/update",async(userdata)=>{
 
 
     } catch (error) {
-        console.log(error)
+        (error)
         toast.error(error.message)
     }
 
@@ -94,7 +94,7 @@ export const LogoutUser=createAsyncThunk("/user/logout",async(userdata)=>{
 
 
     } catch (error) {
-        console.log(error)
+        (error)
         toast.error(error.message)
     }
 

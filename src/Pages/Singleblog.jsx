@@ -45,7 +45,7 @@ const Singleblog = () => {
     (state) => state.comment
   );
 
-  console.log(commentsdata);
+  (commentsdata);
   const [comments, setcomments] = useState({
     id: "",
     comment: "",

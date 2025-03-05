@@ -94,14 +94,14 @@ export const BlogSlice = createSlice({
     },
 
     updateStateofUserblogAfterUpdateblog: (state, action) => {
-      console.log(action.payload);
+      (action.payload);
   
 
       if (action?.payload !== undefined) {
         const {userblog}=state;
         let userblogdata=JSON.parse(JSON.stringify(userblog))
         let index=userblogdata.findIndex((value)=>value._id==action.payload._id);
-        console.log(index)
+        (index)
         userblogdata.splice(index,1,action.payload);
 
         state.userblog=[...userblogdata]
@@ -253,7 +253,7 @@ export const BlogSlice = createSlice({
         state.getsaveblogstatus = "pending";
       })
       .addCase(GetSavedBlogdata.fulfilled, (state, action) => {
-        console.log(action.payload);
+        (action.payload);
         if (action?.payload?.success) {
           state.savedblogdata = action.payload.data?.reverse();
         }

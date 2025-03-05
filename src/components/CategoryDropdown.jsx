@@ -1,23 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-const CategoryDropdown = () => {
+import { MdKeyboardArrowRight } from "react-icons/md";
+const CategoryDropdown = ({ setToggleNav }, ToggleNav) => {
+  const [ctgryToggle, setCtgryToggle] = useState(false);
   const Category = ["programming", "tech", "news", "mobile", "computer"];
   return (
     <>
-      <div className="  relative group">
-        <h1 className=" uppercase text-xs font-semibold cursor-pointer   ">
-          Categorys
-        </h1>
+      <div className="  w-full relative  group transition-all duration-150 ease-in-out ">
+        <button
+          onClick={() => setCtgryToggle(!ctgryToggle)}
+          className=" uppercase text-xs flex  items-center gap-2 font-semibold cursor-pointer   "
+        >
+          Categorys <MdKeyboardArrowRight size={20} />
+        </button>
 
-        <div className="absolute hidden  group-hover:block bg-white p-3  rounded-sm   border-[1px] ">
-          <ul className=" uppercase text-xs font-semibold flex flex-col gap-1  ">
+        <div
+          className={`lg:absolute ${
+            ctgryToggle ? "h-" : "h-0"
+          } transition-all duration-150 ease-in-out lg:hidden mt-3 lg:mt-0  bg-gray-200 lg:group-hover:block    rounded-md   border-[1px] `}
+        >
+          <ul
+            className={` ${
+              ctgryToggle ? "block" : "hidden"
+            } uppercase  font-semibold flex flex-col gap-1 `}
+          >
             {Category &&
               Category?.map((value, ind) => (
                 <Link
+                  onClick={() => setToggleNav(false)}
                   key={ind}
                   to={`/category?value=${value}`}
-                  className="cursor-pointer hover:bg-[#f1f5f9] p-2 "
+                  className="cursor-pointer text-sm lg:text-xs  hover:bg-[#f1f5f9] p-2 "
                 >
                   {value}
                 </Link>

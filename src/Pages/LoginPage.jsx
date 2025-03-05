@@ -6,12 +6,14 @@ import toast from "react-hot-toast";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Button } from "@/components/ui/button";
-
+import { ClipLoader } from "react-spinners";
 import { Label } from "@/components/ui/label";
 import bglogin from "../components/Images/bglg.jpeg";
 const LoginPage = () => {
   const { loginstatus } = useSelector((state) => state.user);
-  console.log(loginstatus);
+     (loginstatus);
+
+     console.log(loginstatus)
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 
@@ -33,12 +35,12 @@ const LoginPage = () => {
     dispatch(LoginUser(user))
       .unwrap()
       .then((res) => {
-        console.log(res);
+        (res);
         if (res.success) {
           toast.success(res.message);
           localStorage.setItem("token", res?.data?.refreshToken);
 
-          window.location.href = "/";
+          Navigate("/")
           setuser({
             name: "",
             email: "",
@@ -50,18 +52,12 @@ const LoginPage = () => {
       });
   };
 
-
-  useEffect(()=>{
-
-    document.title="WebTechBlog-Login"
-  },[])
+  useEffect(() => {
+    document.title = "WebTechBlog-Login";
+  }, []);
   return (
     <>
-      <div
-        className="w-full h-screen relative bg-black  bg-cover bg-center flex items-center justify-center p-5"
-        
-      >
-      
+      <div className="w-full h-screen relative bg-black  bg-cover bg-center flex items-center justify-center p-5">
         <div className="w-full max-w-sm p-6  bg-white  shadow-lg relative">
           {/* <!-- Heading --> */}
           <h2 className="text-2xl   font-semibold text-center ">
@@ -72,9 +68,9 @@ const LoginPage = () => {
           <form className="mt-6 space-y-5" onSubmit={HandleSubmit}>
             {/* <!-- Email Input --> */}
             <div className="flex flex-col gap-1">
-              <Label htmlFor="email" className="block text-gray-600 ">
+              <label htmlFor="email" className="block text-gray-600 ">
                 Email
-              </Label>
+              </label>
               <input
                 type="email"
                 id="email"
@@ -83,7 +79,7 @@ const LoginPage = () => {
                 value={user?.email}
                 onChange={(e) => setuser({ ...user, email: e.target.value })}
                 required
-                className=" p-2 outline-none  w-full border-gray-600  border-[1px] text-black"
+                className="   p-2 outline-none  w-full border-gray-600  border-[1px] text-black"
               />
             </div>
 
@@ -133,7 +129,7 @@ const LoginPage = () => {
 
             {/* <!-- Login Button --> */}
             <button className="  text-white hover:bg-white hover:text-black hover:border-[1px] hover:border-black   bg-[#000000]  p-2  flex items-center justify-center  w-full">
-              Login
+              {loginstatus==="pending"?<ClipLoader color="#f38d07cc0"  size={20}/>:"Login"}
             </button>
 
             {/* <!-- Additional Links --> */}

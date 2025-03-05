@@ -13,15 +13,13 @@ import { IoMenu } from "react-icons/io5";
 import React from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
+import CategoryDropdown from "./CategoryDropdown";
 
-const TopMenuForMobile = () => {
+const TopMenuForMobile = ({ ToggleNav, setToggleNav }) => {
   return (
     <>
-      <Drawer>
-        <DrawerTrigger>
-        <IoMenu size={25} className="text-black" />
-
-        </DrawerTrigger>
+      <Drawer open={ToggleNav}>
+        
         <DrawerContent className=" top-0  z-[999] fixed bg-[#ffffff]  border-none outline-none ">
           <DrawerHeader>
             <DrawerTitle className=" font-bold">WebTechBlog</DrawerTitle>
@@ -30,67 +28,52 @@ const TopMenuForMobile = () => {
 
           <div className="  text-[#1A1A1A]  ">
             <ul className="flex flex-col ubuntu-medium p-2 dark:text-white text-start gap-2 text-md">
-            <DrawerClose asChild>
               <Link
+                onClick={() => setToggleNav(false)}
                 className={`   py-2 px-3 cursor-pointer`}
                 to="/"
               >
                 Home
               </Link>
-              </DrawerClose>
-              <DrawerClose asChild>
-              <Link
-               className={`   py-2 px-3 cursor-pointer`}
-                to={"projects"}
-              >
-                Projects
-              </Link>
-              </DrawerClose>
 
-              <DrawerClose asChild>
+              <div className={`  flex    px-3 cursor-pointer`}>
+                <CategoryDropdown
+                  setToggleNav={setToggleNav}
+                  ToggleNav={ToggleNav}
+                />
+              </div>
+
               <Link
-               className={`   py-2 px-3 cursor-pointer`}
-                onClick={() => setopenmenu(false)}
+                className={`   py-2 px-3 cursor-pointer`}
+                onClick={() => setToggleNav(false)}
                 to="about"
               >
                 About
               </Link>
-              </DrawerClose>
-              <DrawerClose asChild>
-
-
-              <Link
-                className={`   py-2 px-3 cursor-pointer`}
-                to="blog"
-              >
-                Blog
-              </Link>
-              </DrawerClose>
 
               <DrawerClose asChild>
-
-              <Link
-                to={"/profile"}
-                className={`   py-2 px-3 cursor-pointer`}
-              >
-                Profile
-              </Link>
+                <Link
+                  to={"/profile"}
+                  onClick={() => setToggleNav(false)}
+                  className={`   py-2 px-3 cursor-pointer`}
+                >
+                  Profile
+                </Link>
               </DrawerClose>
               {/* <Link to={'admin/allblog'} onClick={()=>setsideopenmenu(false)} className="hover:bg-[#5941C6] hover:text-white rounded-lg py-2 px-3 transition-all duration-300 ease-in-out cursor-pointer">
                     Admin Panel
                   </Link> */}
 
-                  
-              <DrawerClose asChild>
-
-             
-              </DrawerClose>
+              <DrawerClose asChild></DrawerClose>
             </ul>
           </div>
           <DrawerFooter>
-            <DrawerClose className="text-gray-700 p-2 rounded-full">
+            <button
+              onClick={() => setToggleNav(false)}
+              className="text-gray-700 p-2 rounded-full"
+            >
               Cancel
-            </DrawerClose>
+            </button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

@@ -5,10 +5,10 @@ import ApiClient from "../../../contants";
 export const PostCommentonBlog = createAsyncThunk("/postcomment", async (data) => {
   try {
     const res = await ApiClient.post(`/user/blog/comment/postcomment/${data?.id}`, data);
-console.log(res.data)
+(res.data)
     return res.data;
   } catch (error) {
-    console.log(error);
+    (error);
   }
 });
 
@@ -19,7 +19,7 @@ export const GetCommentofblog = createAsyncThunk("/getcomment", async (blogid) =
  
       return res.data;
     } catch (error) {
-      console.log(error);
+      (error);
     }
   });
 
@@ -29,6 +29,6 @@ export const GetCommentofblog = createAsyncThunk("/getcomment", async (blogid) =
  
       return res.data;
     } catch (error) {
-      console.log(error);
+      (error);
     }
   });

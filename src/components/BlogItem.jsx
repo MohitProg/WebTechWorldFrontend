@@ -74,7 +74,7 @@ const BlogItem = ({ value }) => {
       dispatch(AddSavedBlogdata(blogdata?._id))
         .unwrap()
         .then((res) => {
-          console.log(res);
+          (res);
           if (res.success) {
             toast.success(res.message);
             if (res.message === "Blog saved successfully") {
@@ -133,7 +133,7 @@ const BlogItem = ({ value }) => {
     });
   }, []);
   return (
-    <>
+
       <div key={value?._id}>
         <div className="flex  flex-col gap-3 space-y-3">
           <img
@@ -174,16 +174,16 @@ const BlogItem = ({ value }) => {
                 Continue Reading..
               </Link>
 
-              <div className="flex  gap-3 items-center justify-between  w-full  p-2 ">
-                <div>
-                  {value?.category?.map((value) => (
-                    <Link to={`/category?value=${value}`}  className="text-sm bg-[#7ba8dc3f] p-1 px-2  text-blue-700 rounded-full ">
+              <div className="flex  md:flex-row  flex-col gap-5 lg:gap-3 items-start lg:items-center  lg:justify-between  w-full  p-2 ">
+                <div className="flex flex-wrap gap-1">
+                  {value?.category?.map((value,ind) => (
+                    <Link key={ind}  to={`/category?value=${value}`}  className="text-sm bg-[#7ba8dc3f] p-1 px-2   text-blue-700 rounded-full ">
                       #{value}
                     </Link>
                   ))}
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex  items-center md:justify-end justify-between gap-4">
                   <div className="flex items-center gap-1">
                     {like?.like ? (
                       <button onClick={() => HandleReaction(value?._id)}>
@@ -250,7 +250,7 @@ const BlogItem = ({ value }) => {
           </div>
         </div>
       </div>
-    </>
+  
   );
 };
 
