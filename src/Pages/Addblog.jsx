@@ -182,8 +182,8 @@ const Addblog = () => {
       {singleblogtstatus === "pending" ? (
         <Loader />
       ) : (
-        <div className="  max-h-[70vh]      mx-auto ">
-          <form className="space-y-5   shadow-sm  rounded-lg grid grid-cols-4 gap-3">
+        <div className="  lg:max-h-[70vh]      mx-auto ">
+          <form className="space-y-5  lg:p-1 p-2  shadow-sm  rounded-lg grid grid-cols-1 lg:grid-cols-4 gap-3">
             <div className="col-span-1    px-2 max-h-[100vh] overflow-y-scroll space-y-3 py-5">
               <div className="flex flex-col gap-1 ">
                 <label className="  text-sm text-gray-600">Title</label>
@@ -298,7 +298,7 @@ const Addblog = () => {
 
          
 
-            <div className="col-span-3  flex flex-col   ">
+            <div className=" col-span-1 lg:col-span-3  flex flex-col   ">
               {/* Blog Editor Field */}
               <div className="">
                 <TextEdito
@@ -313,7 +313,7 @@ const Addblog = () => {
                    {updateblogstatus==="pending"?<ClipLoader color="#f38d07cc0"  size={20}/>:"UPdate Blog"}
                   </Button>
                 ) : (
-                  <Button onClick={HandleSubmit} className="cmn-btn w-1/3">
+                  <Button onClick={HandleSubmit} className="cmn-btn">
                     {postblogstatus==="pending"?<ClipLoader color="#f38d07cc0"  size={20}/>:"Publish Blog"}
                    
                   </Button>

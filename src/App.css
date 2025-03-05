@@ -19,3 +19,8 @@
     color: white;
 }
 
+
+pre{
+    word-wrap: break-word;
+    overflow-y: scroll;
+}

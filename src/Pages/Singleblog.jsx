@@ -40,12 +40,14 @@ const Singleblog = () => {
     blogcategorystatus,
   } = useSelector((state) => state.blog);
 
+ 
+
   // state for comment data on a post
   const { getcommentstatus, commentsdata } = useSelector(
     (state) => state.comment
   );
 
-  (commentsdata);
+
   const [comments, setcomments] = useState({
     id: "",
     comment: "",

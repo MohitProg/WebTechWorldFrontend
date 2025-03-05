@@ -99,14 +99,14 @@ const TextEdito = ({ setblogdata, blogdata }) => {
 
         // onEditorChange={onEditorChange}
       />
-      <div className="flex  mt-2  items-center justify-start gap-3 ">
+      <div className="flex  lg:flex-row flex-col items-start mt-2  lg:items-center justify-start gap-3 ">
         <button
           onClick={AddContentToblogdata}
           className="bg-black  text-white p-2  "
         >
           Save Blog Data
         </button>
-        <span className="text-red-600 font-semibold">
+        <span className="text-red-600 text-xs font-semibold">
           Note : please save blog content first Then publish it *
         </span>
       </div>
